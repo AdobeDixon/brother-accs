@@ -261,7 +261,7 @@ export default async function decorate(block) {
 
   const minicart = document.createRange().createContextualFragment(`
      <div class="minicart-wrapper nav-tools-wrapper">
-       <button type="button" class="nav-cart-button" aria-label="Cart" aria-haspopup="dialog" aria-expanded="false" aria-controls="minicart-panel"></button>
+       <button type="button" class="nav-cart-button" data-count="0" aria-label="Cart" aria-haspopup="dialog" aria-expanded="false" aria-controls="minicart-panel"><span class="nav-cart-icon"></span><span class="nav-tools-label">Basket</span></button>
        <div class="minicart-panel nav-tools-panel" id="minicart-panel"></div>
        <div class="nav-cart-status" role="status" aria-live="polite"></div>
      </div>
@@ -366,11 +366,9 @@ export default async function decorate(block) {
 
     const totalQuantity = data?.totalQuantity ?? 0;
 
-    if (totalQuantity) {
-      cartButton.setAttribute('data-count', totalQuantity);
-    } else {
-      cartButton.removeAttribute('data-count');
-    }
+    // Brother header always shows a count badge (including 0), matching the
+    // store.brother.com utility bar where "Basket" carries a red 0 badge.
+    cartButton.setAttribute('data-count', totalQuantity);
 
     // Skip the announcement for the initial value on page load so screen
     // reader users aren't told about the cart contents before they've
