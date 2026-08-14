@@ -900,8 +900,16 @@ body:has(.seller-assisted-buying-banner) {
 
 header.brother-header .nav-wrapper {
   --brother-blue: rgb(13 46 160);
-  --brother-nav-top-height: 64px;
-  --brother-nav-bottom-height: 52px;
+  --brother-grey: rgb(242 242 242);
+  --brother-nav-top-height: 60px;
+  --brother-nav-bottom-height: 74px;
+  --brother-container: 1264px;
+
+  /* Full-bleed content aligned to a centered max-width container: the logo,
+     tools and nav items all start/stop at this inset. Uses 100vw (not 100%)
+     so it resolves against the viewport everywhere — the logo and tools live
+     in auto-sized grid columns, where a `100%` would collapse to the floor. */
+  --brother-inset: max(24px, calc((100vw - var(--brother-container)) / 2));
 
   position: sticky;
   top: 0;
@@ -914,10 +922,15 @@ header.brother-header {
   height: auto;
 }
 
-/* Per-section icons render inline before each item label (mobile default) */
-header.brother-header nav .nav-sections ul > li > img {
-  width: 20px;
-  height: 20px;
+/* Per-section icons render inline before each item label (mobile default).
+   The authored markup nests the icon as `li > p > picture > img`, so target
+   that — a `li > img` selector matches nothing and lets the boilerplate
+   `li.nav-drop img { width: 100% }` rule blow the icon up to full size. */
+header.brother-header nav .nav-sections ul > li > p picture,
+header.brother-header nav .nav-sections ul > li > p img {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
   object-fit: contain;
   vertical-align: middle;
   margin-right: 8px;
@@ -940,6 +953,84 @@ header.brother-header nav .nav-sections ul > li > img {
   header.brother-header nav .nav-tools {
     gap: 4px;
   }
+
+  /* The Brother logo is a white SVG, so the collapsed mobile top bar needs the
+     blue brand background (as on store.brother.com mobile) — otherwise the
+     logo is invisible on white. Icons/hamburger are inverted to white to
+     stay legible on blue; the open drawer keeps its own white background. */
+  header.brother-header .nav-wrapper {
+    background-color: var(--brother-blue);
+  }
+
+  header.brother-header nav .nav-hamburger button {
+    color: #fff;
+    background-color: transparent;
+  }
+
+  header.brother-header nav .nav-tools,
+  header.brother-header nav[aria-expanded='true'] .nav-tools {
+    background-color: transparent;
+  }
+
+  /* Icon-only tools on mobile: hide the text labels and caret */
+  header.brother-header nav .nav-tools .nav-tools-label,
+  header.brother-header nav .nav-tools .nav-caret {
+    display: none;
+  }
+
+  /* White background-image icons (search, wishlist) on the blue bar */
+  header.brother-header nav .nav-tools button.nav-search-button,
+  header.brother-header nav .nav-tools button.nav-wishlist-button {
+    filter: brightness(0) invert(1);
+  }
+
+  header.brother-header nav .nav-tools .nav-dropdown-button {
+    color: #fff;
+  }
+
+  /* Basket: white cart icon via its span; red badge stays un-inverted */
+  header.brother-header nav .nav-tools button.nav-cart-button {
+    display: inline-flex;
+    align-items: center;
+    width: auto;
+    height: 40px;
+    padding: 0 6px;
+    background: none;
+    position: relative;
+  }
+
+  header.brother-header nav .nav-tools .nav-cart-icon {
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: url('../../icons/cart.svg') no-repeat center / contain;
+    filter: brightness(0) invert(1);
+  }
+
+  header.brother-header nav .nav-tools button.nav-cart-button[data-count]::after {
+    content: attr(data-count);
+    position: absolute;
+    top: 2px;
+    left: 16px;
+    background-color: rgb(226 0 26);
+    color: #fff;
+    border-radius: 50%;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  /* Drawer contents stay dark-on-white when the hamburger menu is open */
+  header.brother-header nav[aria-expanded='true'] .nav-sections {
+    background-color: var(--background-color);
+  }
 }
 
 @media (min-width: 900px) {
@@ -947,10 +1038,14 @@ header.brother-header nav .nav-sections ul > li > img {
   header.brother-header nav {
     position: relative;
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    grid-template-areas:
-      'brand . tools'
-      'sections sections sections';
+
+    /* Explicit rows (via the shorthand): without them the base `grid-template`
+       leaves a phantom third row below the nav bar, padding the header with
+       dead space. */
+    grid-template:
+      'brand . tools' var(--brother-nav-top-height)
+      'sections sections sections' var(--brother-nav-bottom-height)
+      / auto 1fr auto;
     align-items: center;
     gap: 0 24px;
     max-width: none;
@@ -962,8 +1057,10 @@ header.brother-header nav .nav-sections ul > li > img {
     grid-area: brand;
     position: relative;
     z-index: 1;
+    display: flex;
+    align-items: center;
     min-height: var(--brother-nav-top-height);
-    padding-left: 32px;
+    padding-left: var(--brother-inset);
   }
 
   header.brother-header nav .nav-tools {
@@ -971,7 +1068,99 @@ header.brother-header nav .nav-sections ul > li > img {
     position: relative;
     z-index: 1;
     min-height: var(--brother-nav-top-height);
-    padding-right: 32px;
+    gap: 0;
+    padding-right: var(--brother-inset);
+
+    /* Base .nav-tools has a white background that would hide the blue band */
+    background: transparent;
+  }
+
+  /* Utility cluster order (DOM order is wishlist, cart, search, account):
+     My Account · Basket · Search, matching store.brother.com. */
+  header.brother-header nav .nav-tools .wishlist-wrapper {
+    display: none;
+  }
+
+  header.brother-header nav .nav-tools .dropdown-wrapper {
+    order: 1;
+  }
+
+  header.brother-header nav .nav-tools .minicart-wrapper {
+    order: 2;
+    margin-left: 20px;
+    padding-left: 20px;
+    border-left: 1px solid rgb(255 255 255 / 30%);
+  }
+
+  header.brother-header nav .nav-tools .search-wrapper {
+    order: 3;
+    margin-left: 8px;
+  }
+
+  /* White text + icons on the blue bar */
+  header.brother-header nav .nav-tools .nav-tools-label {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  header.brother-header nav .nav-tools .nav-dropdown-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #fff;
+    min-width: 0;
+  }
+
+  header.brother-header nav .nav-tools .nav-dropdown-button .nav-caret {
+    margin-left: 2px;
+  }
+
+  /* Basket: icon + label, red count badge over the icon */
+  header.brother-header nav .nav-tools button.nav-cart-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: auto;
+    height: auto;
+    padding: 6px 4px;
+    background: none;
+    position: relative;
+  }
+
+  header.brother-header nav .nav-tools .nav-cart-icon {
+    width: 24px;
+    height: 24px;
+    background: url('../../icons/cart.svg') no-repeat center / contain;
+    filter: brightness(0) invert(1);
+  }
+
+  header.brother-header nav .nav-tools button.nav-cart-button[data-count]::after {
+    content: attr(data-count);
+    position: absolute;
+    top: 0;
+    left: 14px;
+    background-color: rgb(226 0 26);
+    color: #fff;
+    border-radius: 50%;
+    min-width: 17px;
+    height: 17px;
+    padding: 0 4px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  /* Search icon only, white */
+  header.brother-header nav .nav-tools button.nav-search-button {
+    width: 40px;
+    height: 40px;
+    filter: brightness(0) invert(1);
   }
 
   /* Tier 1 blue band — full-bleed behind row 1 */
@@ -1004,29 +1193,182 @@ header.brother-header nav .nav-sections ul > li > img {
     grid-area: sections;
     background-color: #fff;
     min-height: var(--brother-nav-bottom-height);
-    padding-inline: 32px;
+    padding: 0;
   }
 
   header.brother-header nav .nav-sections .default-content-wrapper > ul {
     display: flex;
-    gap: 28px;
-    align-items: center;
-    margin-inline: auto;
-    max-width: 1264px;
+    gap: 0;
+    align-items: stretch;
+    justify-content: center;
+    margin: 0;
+    max-width: none;
+    padding-inline: var(--brother-inset);
+    min-height: var(--brother-nav-bottom-height);
   }
 
-  header.brother-header nav .nav-sections ul > li > img {
-    width: 22px;
-    height: 22px;
-    margin-right: 8px;
-  }
-
+  /* Each primary item: icon stacked above its label, centered in its cell. The
+     label is a bare text node inside the `<p>`, the icon its `<picture>`. */
   header.brother-header nav .nav-sections .default-content-wrapper > ul > li {
     display: flex;
     align-items: center;
+    align-self: stretch; /* fill the nav-bar height (base .nav-drop centers it) */
+    padding: 0 38px;
     color: rgb(33 33 33);
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
     white-space: nowrap;
+  }
+
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li > p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  header.brother-header nav .nav-sections ul > li > p picture,
+  header.brother-header nav .nav-sections ul > li > p img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    margin: 0;
+    object-fit: contain;
+  }
+
+  /* Trailing "Business Solutions" sits in a full-bleed grey panel with an
+     inline icon and a divider on its left, matching the source. The grey is
+     painted by a clipped pseudo-element so the item's own dropdown (which
+     drops below) is never clipped. */
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li:last-child {
+    position: relative;
+    z-index: 0; /* own stacking context so the grey ::before sits above the white nav bg */
+    margin-left: 32px;
+    padding: 0 48px;
+    border-left: 1px solid var(--color-neutral-300, rgb(0 0 0 / 12%));
+  }
+
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li:last-child::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--brother-grey);
+    box-shadow: 0 0 0 100vmax var(--brother-grey);
+    clip-path: inset(0 -100vmax 0 0);
+  }
+
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li:last-child > p {
+    flex-direction: row;
+    gap: 14px;
+  }
+
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li:last-child > p picture,
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li:last-child > p img {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+  }
+
+  /* Keep the item background flat on hover; the two-tier bar is white */
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li:hover,
+  header.brother-header nav .nav-sections .nav-drop[aria-expanded='true'] {
+    background-color: transparent;
+  }
+
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li:hover > p {
+    color: var(--brother-blue);
+  }
+
+  /* ---- Mega-menu panel ---------------------------------------------------
+     Drop the panel below the full two-tier header (top: 100% of nav) so it
+     no longer paints over the white nav bar, and size it to its content
+     instead of the base 200–600px fixed band. */
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] .submenu-wrapper {
+    top: 100%;
+    left: 0;
+    width: 100%;
+    min-height: 0;
+    max-height: none;
+    padding: 28px 32px 36px;
+    background-color: #fff;
+    border-top: 1px solid var(--color-neutral-200, rgb(0 0 0 / 8%));
+    box-shadow: 0 12px 24px rgb(0 0 0 / 12%);
+  }
+
+  /* Re-show the section name as the panel heading (base hides it) */
+  header.brother-header nav .nav-sections ul > li.nav-drop[aria-expanded='true'] .submenu-title {
+    display: block;
+    max-width: 1264px;
+    margin: 0 auto 16px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--brother-blue);
+  }
+
+  /* The immediate list becomes a row of category columns */
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] .submenu-wrapper > ul {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 16px 48px;
+    width: auto;
+    max-width: 1264px;
+    min-height: 0;
+    max-height: none;
+    margin: 0 auto;
+    overflow: visible;
+  }
+
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] .submenu-wrapper > ul > li {
+    display: block;
+    min-width: 0;
+    max-width: none;
+  }
+
+  /* Category heading within a column */
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] .submenu-wrapper > ul > li > p {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: rgb(33 33 33);
+    cursor: default;
+  }
+
+  /* Link list inside a column: vertical, no arrow, no width cap */
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] .submenu-wrapper > ul > li > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: auto;
+    min-height: 0;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] .submenu-wrapper > ul > li > ul > li {
+    min-width: 0;
+    max-width: none;
+    padding: 0;
+  }
+
+  header.brother-header nav .nav-sections .submenu-wrapper ul::before {
+    display: none;
+  }
+
+  header.brother-header nav .nav-sections .submenu-wrapper a {
+    color: rgb(33 33 33);
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  header.brother-header nav .nav-sections .submenu-wrapper a:hover {
+    color: var(--brother-blue);
+    text-decoration: underline;
   }
 }
