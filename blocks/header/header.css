@@ -936,6 +936,77 @@ header.brother-header nav .nav-sections ul > li > p img {
   margin-right: 8px;
 }
 
+/* ---- Expanding search bar (shared) -------------------------------------
+   Clicking the search icon reveals a full-width bar with a large input and a
+   blue submit button, plus a live-search results dropdown. Layout/position
+   differs per breakpoint (in-flow grid row on desktop, absolute on mobile);
+   the visual styling below is shared. */
+header.brother-header nav .nav-search-panel {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0;
+  background-color: #fff;
+  box-shadow: none;
+  overflow: visible;
+}
+
+header.brother-header nav .nav-search-bar {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  box-sizing: border-box;
+  padding: 16px var(--brother-inset, 24px);
+}
+
+header.brother-header nav .nav-search-bar form {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+}
+
+header.brother-header nav .nav-search-panel input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border: 1px solid var(--color-neutral-500, rgb(0 0 0 / 30%));
+  border-right: 0;
+  border-radius: 0;
+  font: var(--type-body-1-default-font);
+  letter-spacing: var(--type-body-1-default-letter-spacing);
+  color: var(--color-neutral-800, #1a1a1a);
+  appearance: none;
+}
+
+header.brother-header nav .nav-search-bar .nav-search-submit {
+  flex: 0 0 auto;
+  width: 56px;
+  height: 48px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background-color: var(--brother-blue);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header.brother-header nav .nav-search-bar .nav-search-submit::before {
+  content: '';
+  width: 22px;
+  height: 22px;
+  background-color: #fff;
+  mask: url('../../icons/search.svg') no-repeat center / contain;
+}
+
+/* Live-search results drop below the bar as an overlay */
+header.brother-header nav .search-bar-result {
+  box-sizing: border-box;
+  padding: 0 var(--brother-inset, 24px) 16px;
+}
+
 /* Mobile (< 900px): the base grid uses a fixed 128px brand column + a wide
    tools column that together overflow narrow viewports. Let the brand column
    flex and tighten the tools row so everything fits within the viewport. */
@@ -986,6 +1057,22 @@ header.brother-header nav .nav-sections ul > li > p img {
 
   header.brother-header nav .nav-tools .nav-dropdown-button {
     color: #fff;
+  }
+
+  /* Search expands as an absolute full-width dropdown below the top bar
+     (kept out of grid flow so it adds no phantom row). */
+  header.brother-header nav .nav-search-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 60;
+    box-shadow: 0 12px 24px rgb(0 0 0 / 12%);
+  }
+
+  header.brother-header nav .search-bar-result {
+    max-height: 60vh;
+    overflow-y: auto;
   }
 
   /* Basket: white cart icon via its span; red badge stays un-inverted */
@@ -1044,6 +1131,7 @@ header.brother-header nav .nav-sections ul > li > p img {
        dead space. */
     grid-template:
       'brand . tools' var(--brother-nav-top-height)
+      'search search search' auto
       'sections sections sections' var(--brother-nav-bottom-height)
       / auto 1fr auto;
     align-items: center;
@@ -1370,5 +1458,29 @@ header.brother-header nav .nav-sections ul > li > p img {
   header.brother-header nav .nav-sections .submenu-wrapper a:hover {
     color: var(--brother-blue);
     text-decoration: underline;
+  }
+
+  /* ---- Search: full-width row between the utility bar and the nav items ---
+     The panel occupies the collapsible `search` grid row, so opening it pushes
+     the nav items (and the page) down in flow rather than overlaying them. */
+  header.brother-header nav .nav-search-panel {
+    grid-area: search;
+    position: relative;
+    inset: auto;
+    z-index: 4;
+    border-bottom: 1px solid var(--color-neutral-200, rgb(0 0 0 / 8%));
+  }
+
+  /* Live results overlay below the bar instead of pushing the page further */
+  header.brother-header nav .search-bar-result {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 60;
+    max-height: 70vh;
+    overflow-y: auto;
+    background-color: #fff;
+    box-shadow: 0 12px 24px rgb(0 0 0 / 12%);
   }
 }
