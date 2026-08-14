@@ -1,0 +1,38 @@
+{
+  "variantName": "hero-split",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-08-13T21:13:18.000Z",
+  "sourceContext": {
+    "originUrl": "https://store.brother.co.uk/",
+    "originPage": "Brother store homepage",
+    "blockPosition": "top"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "accent",
+    "density": "spacious",
+    "purpose": "hero",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "image + heading + subheading + 1 CTA",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "homepage top banner",
+      "split image + solid-color text panel intro banners",
+      "brand landing pages with a photo beside a colored copy panel"
+    ],
+    "notSuitableFor": [
+      "full-bleed background-image banners with overlaid text (use hero-overlay)",
+      "text-only intros with no image"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-13T21:13:18.000Z"
+  }
+}

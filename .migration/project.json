@@ -1,0 +1,10 @@
+{
+  "type": "da",
+  "sites": {
+    "brother-accs": {
+      "previewOrg": "AdobeDixon",
+      "previewSite": "brother-accs",
+      "libraryUrl": "https://main--sta-boilerplate--aemdemos.aem.page/tools/sidekick/library.json"
+    }
+  }
+}

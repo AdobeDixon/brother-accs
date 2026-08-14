@@ -71,3 +71,118 @@ footer .footer p {
         padding: 40px 32px 24px;
     }
 }
+
+/* ============================================================
+   Brother store footer — dark theme
+   Source: store.brother.co.uk — dark near-black background, light text,
+   four link columns + social row, dark legal/copyright bottom bar.
+   ============================================================ */
+
+footer.brother-footer {
+  --brother-footer-bg: #1a1a1a;
+  --brother-footer-legal-bg: #0d0d0d;
+  --brother-footer-text: #e5e5e5;
+  --brother-footer-heading: #fff;
+  --brother-footer-link: #cfcfcf;
+
+  background-color: var(--brother-footer-bg);
+  color: var(--brother-footer-text);
+}
+
+footer.brother-footer .footer-columns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px 32px;
+}
+
+footer.brother-footer .footer-columns h3 {
+  color: var(--brother-footer-heading);
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+footer.brother-footer .footer-columns ul {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+}
+
+footer.brother-footer .footer-columns li {
+  margin-bottom: 8px;
+}
+
+footer.brother-footer .footer-columns a {
+  color: var(--brother-footer-link);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+footer.brother-footer .footer-columns a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Legal / copyright bottom bar (declared before the more-specific social-row
+   rules below to satisfy no-descending-specificity) */
+footer.brother-footer .footer-legal {
+  background-color: var(--brother-footer-legal-bg);
+}
+
+footer.brother-footer .footer-legal ul {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+footer.brother-footer .footer-legal a {
+  color: var(--brother-footer-link);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+footer.brother-footer .footer-legal a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+footer.brother-footer .footer-legal p {
+  color: #9a9a9a;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Social row: the last heading group ("Stay informed") holds icon links */
+footer.brother-footer .footer-columns ul:last-of-type {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+footer.brother-footer .footer-columns ul:last-of-type li {
+  margin-bottom: 0;
+}
+
+footer.brother-footer .footer-columns ul:last-of-type img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+@media (min-width: 900px) {
+  footer.brother-footer .footer-columns {
+    grid-template-columns: repeat(4, 1fr);
+    align-items: start;
+  }
+
+  /* "Stay informed" heading + social row spans full width below the 4 columns */
+  footer.brother-footer .footer-columns h3:nth-of-type(5),
+  footer.brother-footer .footer-columns ul:last-of-type {
+    grid-column: 1 / -1;
+  }
+}

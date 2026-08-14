@@ -1,0 +1,39 @@
+{
+  "variantName": "columns-promo",
+  "baseBlock": "columns",
+  "version": "1.0.0",
+  "created": "2026-08-13T21:13:18.000Z",
+  "sourceContext": {
+    "originUrl": "https://store.brother.co.uk/",
+    "originPage": "Brother store homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "purpose": "feature",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "2 columns: image + rich text (heading + subheading + body + CTA)",
+    "buttonCount": 1,
+    "imageCount": 1,
+    "columnCount": 2
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "image + text promotional sections on light background",
+      "product/feature highlight rows (image beside heading/paragraph/CTA)",
+      "EcoPro / Brother Printers style promos"
+    ],
+    "notSuitableFor": [
+      "full-bleed banners with overlaid text (use hero-overlay)",
+      "equal-width icon/title/text strips (use columns-badges)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 2,
+    "lastUsed": "2026-08-13T21:13:18.000Z"
+  }
+}

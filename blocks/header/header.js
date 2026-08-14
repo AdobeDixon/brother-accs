@@ -170,13 +170,27 @@ export default async function decorate(block) {
     document.body.insertAdjacentElement('afterbegin', sellerAssistedBuyingBanner);
   }
 
-  // load nav as fragment
+  // load nav as fragment. Resolution order: explicit `nav` metadata, then this
+  // project's migrated nav doc at `/content/nav`, then the boilerplate `/nav`.
+  // `/content/nav` is tried before `/nav` because the local dev server still
+  // serves the boilerplate default at `/nav`; the migrated Brother nav lives
+  // under /content. Works for local preview and DA/EDS production alike.
   const navMeta = getMetadata('nav');
-  const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-  const fragment = await loadFragment(navPath);
+  let fragment = null;
+  if (navMeta) {
+    fragment = await loadFragment(new URL(navMeta, window.location).pathname);
+  }
+  if (!fragment) fragment = await loadFragment('/content/nav');
+  if (!fragment) fragment = await loadFragment('/nav');
+
+  // Guard: if no nav fragment resolved (e.g. content not yet published), bail
+  // out rather than throw on fragment.firstElementChild and break the page.
+  if (!fragment) return;
 
   // decorate nav DOM
   block.textContent = '';
+  // Mark the header for the Brother two-tier styling (blue top bar + white nav bar)
+  block.closest('header')?.classList.add('brother-header');
   const nav = document.createElement('nav');
   nav.id = 'nav';
   while (fragment.firstElementChild) nav.append(fragment.firstElementChild);

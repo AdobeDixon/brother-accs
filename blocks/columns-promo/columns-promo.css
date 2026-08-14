@@ -1,0 +1,146 @@
+/*
+ * columns-promo — 2-column media + rich-text promo banner.
+ * Design migrated from store.brother.co.uk (.promo-banner).
+ * Two instances on the homepage: "EcoPro ink & toner subscription" (image + list + CTA)
+ * and "Brother Printers" (dual image + CTA). One rule set styles both.
+ * Values extracted from source computed styles — see migration-work/columns-promo-extracted.css.
+ */
+
+/* ---- Row: mobile-first (stacked, image on top) ---- */
+.columns-promo > div {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Image cell keeps its order at the top on mobile */
+.columns-promo > div > .columns-promo-img-col {
+  order: 0;
+}
+
+.columns-promo > div > div {
+  order: 1;
+}
+
+/* ---- Media / image column ---- */
+.columns-promo .columns-promo-img-col picture {
+  display: block;
+}
+
+.columns-promo .columns-promo-img-col img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---- Typography (all viewports) ---- */
+.columns-promo h2 {
+  margin: 0 0 21px;
+  font-family: var(--brother-body-font); /* source h2 renders in Arial */
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 46.2px;
+  color: var(--brother-text);
+}
+
+.columns-promo h3 {
+  margin: 0 0 12px;
+  font-family: var(--brother-heading-font);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 26.4px;
+  color: var(--brother-text);
+}
+
+.columns-promo p {
+  margin: 0 0 18px;
+  font-family: var(--brother-body-font);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 28.8px;
+  color: var(--brother-text);
+}
+
+/* Brother Printers instance: two images wrapped in a single <p> by EDS */
+.columns-promo .columns-promo-img-col p {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 0;
+}
+
+/* ---- Benefits list (EcoPro) with custom disc bullets ---- */
+.columns-promo ul {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+  font-size: 18px;
+  line-height: 28.8px;
+  color: var(--brother-text);
+}
+
+.columns-promo ul li {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 30px;
+  font-size: 18px;
+  line-height: 28.8px;
+}
+
+.columns-promo ul li::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(0 0 0);
+}
+
+/* ---- CTA (styled directly — EDS does not decorate it as .button here) ---- */
+.columns-promo a:any-link {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 16px 50px;
+  border: 1px solid var(--brother-blue);
+  border-radius: 0; /* Brother CTAs use square corners */
+  background-color: var(--brother-blue);
+  color: rgb(255 255 255);
+  font-family: var(--brother-heading-font);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: normal;
+  text-decoration: none;
+}
+
+.columns-promo a:any-link:hover,
+.columns-promo a:any-link:focus {
+  border-color: var(--brother-blue-hover);
+  background-color: var(--brother-blue-hover);
+  color: rgb(255 255 255);
+  text-decoration: none;
+}
+
+/* ---- Desktop layout: media left, text right, vertically centered ---- */
+@media (min-width: 900px) {
+  .columns-promo > div {
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
+  }
+
+  .columns-promo > div > div {
+    order: unset;
+  }
+
+  .columns-promo > div > .columns-promo-img-col {
+    flex: 0 0 56%;
+    max-width: 56%;
+  }
+
+  .columns-promo > div > div:not(.columns-promo-img-col) {
+    flex: 1 1 auto;
+  }
+}

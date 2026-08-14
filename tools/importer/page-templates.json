@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "projectType": "da"
+  },
+  "templates": [
+    {
+      "name": "homepage",
+      "urls": ["https://store.brother.co.uk/"],
+      "coverageGaps": [],
+      "description": "Brother store homepage: hero banner, category cards carousel (Printers/Supplies/Scanners/Labelling), trust-badge columns, EcoPro subscription (image+text), Genuine Supplies banner, Brother Printers (image+text)",
+      "blocks": [
+        { "name": "hero-split", "instances": ["#content .dsc-hero"] },
+        { "name": "cards-category", "instances": ["#content .section.product-categories"] },
+        { "name": "columns-badges", "instances": ["#content .icon-link-list-container"], "section": "grey" },
+        { "name": "columns-promo", "instances": ["#content .section.section--theme-8:nth-of-type(1) .promo-banner", "#content .section.section--theme-8:nth-of-type(2) .promo-banner"] },
+        { "name": "hero-overlay", "instances": ["#content .section.section--theme-1 .promo-banner"] }
+      ]
+    }
+  ]
+}
