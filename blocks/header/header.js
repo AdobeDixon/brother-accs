@@ -383,19 +383,30 @@ export default async function decorate(block) {
   }, { eager: true });
 
   /** Search */
-  const searchFragment = document.createRange().createContextualFragment(`
+  // Search button lives in the utility bar; the panel expands as a full-width
+  // row below the header (see .nav-search-panel grid-area in header.css), so it
+  // is appended to `nav` rather than nested inside the tools cluster.
+  const searchWrapperFragment = document.createRange().createContextualFragment(`
   <div class="search-wrapper nav-tools-wrapper">
-    <button type="button" class="nav-search-button">Search</button>
-    <div class="nav-search-input nav-search-panel nav-tools-panel">
-      <form id="search-bar-form"></form>
-      <div class="search-bar-result" style="display: none;"></div>
-    </div>
+    <button type="button" class="nav-search-button" aria-label="Search" aria-expanded="false" aria-controls="nav-search-panel">Search</button>
   </div>
   `);
 
-  navTools.append(searchFragment);
+  navTools.append(searchWrapperFragment);
 
-  const searchPanel = navTools.querySelector('.nav-search-panel');
+  const searchPanelFragment = document.createRange().createContextualFragment(`
+  <div class="nav-search-input nav-search-panel nav-tools-panel" id="nav-search-panel">
+    <div class="nav-search-bar">
+      <form id="search-bar-form"></form>
+      <button type="submit" form="search-bar-form" class="nav-search-submit" aria-label="Search"></button>
+    </div>
+    <div class="search-bar-result" style="display: none;"></div>
+  </div>
+  `);
+
+  nav.append(searchPanelFragment);
+
+  const searchPanel = nav.querySelector('.nav-search-panel');
   const searchButton = navTools.querySelector('.nav-search-button');
   const searchForm = searchPanel.querySelector('#search-bar-form');
   const searchResult = searchPanel.querySelector('.search-bar-result');
@@ -476,7 +487,7 @@ export default async function decorate(block) {
 
         UI.render(Input, {
           name: 'search',
-          placeholder: labels.Global?.Search,
+          placeholder: labels.Global?.SearchPlaceholder || 'What are you looking for?',
           onValue: (phrase) => {
             if (!phrase) {
               search(null, { scope: 'popover' });
@@ -500,6 +511,7 @@ export default async function decorate(block) {
     }
 
     togglePanel(searchPanel, state);
+    searchButton.setAttribute('aria-expanded', searchPanel.classList.contains('nav-tools-panel--show') ? 'true' : 'false');
     if (state) searchForm?.querySelector('input')?.focus();
   }
 
