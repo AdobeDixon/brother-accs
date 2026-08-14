@@ -1,0 +1,38 @@
+{
+  "variantName": "hero-overlay",
+  "baseBlock": "hero",
+  "version": "1.0.0",
+  "created": "2026-08-13T21:13:18.000Z",
+  "sourceContext": {
+    "originUrl": "https://store.brother.co.uk/",
+    "originPage": "Brother store homepage",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "spacious",
+    "purpose": "hero",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "background image + heading + subheading + paragraph + 1 CTA",
+    "buttonCount": 1,
+    "imageCount": 1
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "full-bleed dark photographic banners with text overlaid",
+      "mid-page promotional banners with a background image",
+      "supplies/product feature banners with light text over a dark image"
+    ],
+    "notSuitableFor": [
+      "split image + solid-color panel banners (use hero-split)",
+      "side-by-side image + text promos (use columns-promo)"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 1,
+    "lastUsed": "2026-08-13T21:13:18.000Z"
+  }
+}

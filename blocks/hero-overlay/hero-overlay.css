@@ -1,0 +1,162 @@
+/*
+ * hero-overlay: full-bleed dark photographic banner with white heading,
+ * subheading, body copy and an outlined CTA overlaid in a left-aligned column.
+ * Values extracted from store.brother.co.uk (.section--theme-1 .promo-banner).
+ */
+
+/* Full-bleed: neutralise the section's centred max-width wrapper so the
+   banner spans edge to edge. */
+.hero-overlay-container .hero-overlay-wrapper {
+  max-width: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Banner shell */
+.hero-overlay {
+  position: relative;
+  box-sizing: border-box;
+  min-height: 300px;
+  padding: 48px 0;
+  overflow: hidden;
+  background-color: rgb(33 33 33);
+  color: rgb(255 255 255);
+}
+
+/* Background photo layer (adopted from the preceding default content by JS) */
+.hero-overlay > picture {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  margin: 0;
+}
+
+.hero-overlay > picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* Mobile: show the plainer left portion of the photo behind the text. */
+  object-position: 30% center;
+}
+
+/* Mobile scrim: keeps the white copy legible where the photo is busy.
+   Removed at desktop, where the text column sits over the plain studio
+   backdrop, so desktop fidelity is unaffected. */
+.hero-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(90deg, rgb(33 33 33 / 75%) 0%, rgb(33 33 33 / 45%) 55%, rgb(33 33 33 / 10%) 100%);
+}
+
+/* Content row: aligns with the page content grid, sits above the photo */
+.hero-overlay > div {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Text column: fixed max width, left aligned */
+.hero-overlay > div > div {
+  max-width: 460px;
+}
+
+.hero-overlay h2 {
+  margin: 0 0 21px;
+  color: rgb(255 255 255);
+  font-family: var(--brother-body-font);
+  font-size: 34px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: normal;
+}
+
+.hero-overlay h3 {
+  margin: 0 0 12px;
+  color: rgb(255 255 255);
+  font-family: var(--brother-heading-font);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: normal;
+}
+
+.hero-overlay p {
+  margin: 0 0 18px;
+  color: rgb(255 255 255);
+  font-family: var(--brother-body-font);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Outlined CTA (source .br-btn--theme-1). :any-link keeps it above the global
+   link styling. */
+.hero-overlay a:any-link {
+  display: inline-block;
+  margin-top: 5px;
+  padding: 14px 40px;
+  border: 1px solid rgb(255 255 255);
+  border-radius: 0;
+  background: transparent;
+  color: rgb(255 255 255);
+  font-family: var(--brother-heading-font);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: normal;
+  text-decoration: none;
+  text-transform: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.hero-overlay a:any-link:hover,
+.hero-overlay a:any-link:focus {
+  background: rgb(255 255 255);
+  color: rgb(33 33 33);
+  text-decoration: none;
+}
+
+@media (min-width: 900px) {
+  .hero-overlay {
+    min-height: 480px;
+    padding: 110px 0;
+  }
+
+  /* Desktop matches source exactly: photo anchored right, no scrim. */
+  .hero-overlay > picture img {
+    object-position: right center;
+  }
+
+  .hero-overlay::before {
+    display: none;
+  }
+
+  .hero-overlay > div {
+    padding: 0 32px;
+  }
+
+  .hero-overlay > div > div {
+    max-width: 440px;
+  }
+
+  .hero-overlay h2 {
+    font-size: 42px;
+    line-height: 1.1;
+  }
+
+  .hero-overlay h3 {
+    font-size: 24px;
+  }
+
+  .hero-overlay p {
+    font-size: 18px;
+  }
+
+  .hero-overlay a:any-link {
+    padding: 16px 50px;
+  }
+}

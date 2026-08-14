@@ -1,0 +1,113 @@
+/* hero-split — split hero: image + solid mid-blue text panel.
+   Values extracted from store.brother.co.uk #content .dsc-hero (getComputedStyle). */
+
+/* Full-bleed: neutralise the section max-width/padding so the hero spans edge to edge. */
+.hero-split-container .hero-split-wrapper {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Block = flex container. Mobile: stacked (image over text panel). */
+.hero-split {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Row 1 = image cell */
+.hero-split > div:first-child {
+  margin: 0;
+  line-height: 0; /* kill inline whitespace gap under the image */
+}
+
+/* Row 2 = solid mid-blue text panel */
+.hero-split > div:last-child {
+  margin: 0;
+  padding: 40px 24px;
+  background-color: rgb(25 101 225);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-split > div:first-child > div,
+.hero-split > div:first-child picture {
+  display: block;
+  height: 100%;
+}
+
+.hero-split > div:first-child img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Heading + subheading — white, source sizes */
+.hero-split h1 {
+  margin: 0 0 20px;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 44px;
+  letter-spacing: normal;
+  color: rgb(255 255 255);
+}
+
+.hero-split h1 strong {
+  font-weight: 500;
+}
+
+.hero-split h4 {
+  margin: 0 0 9px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 19.8px;
+  letter-spacing: normal;
+  color: rgb(255 255 255);
+}
+
+/* CTA container spacing (source .cta-container-links: padding 25px 0 0) */
+.hero-split p {
+  margin: 25px 0 0;
+}
+
+/* CTA — white outlined button (source .btn span) */
+.hero-split a:any-link {
+  display: inline-block;
+  width: fit-content;
+  margin: 0;
+  border: 2px solid rgb(255 255 255);
+  border-radius: 6px;
+  padding: 6px 14px;
+  background-color: transparent;
+  color: rgb(255 255 255);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.hero-split a:any-link:hover,
+.hero-split a:any-link:focus-visible {
+  background-color: rgb(255 255 255);
+  color: rgb(25 101 225);
+  text-decoration: none;
+}
+
+/* Desktop: side-by-side split (source image 640 / panel 800 ≈ 44.4% / 55.6%) */
+@media (min-width: 900px) {
+  .hero-split {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .hero-split > div:first-child {
+    flex: 0 0 44.44%;
+  }
+
+  .hero-split > div:last-child {
+    flex: 1 1 auto;
+    padding: 45px 60px 90px 100px;
+  }
+}

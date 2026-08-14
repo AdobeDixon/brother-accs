@@ -890,3 +890,143 @@ body:has(.seller-assisted-buying-banner) {
     display: inline-block;
   }
 }
+
+/* ============================================================
+   Brother store header — two-tier layout override
+   Tier 1 (blue bar): logo + utility tools (account/cart/search)
+   Tier 2 (white bar): main nav with per-section icons
+   Source: store.brother.co.uk — tier-1 blue rgb(13 46 160), white logo/text
+   ============================================================ */
+
+header.brother-header .nav-wrapper {
+  --brother-blue: rgb(13 46 160);
+  --brother-nav-top-height: 64px;
+  --brother-nav-bottom-height: 52px;
+
+  position: sticky;
+  top: 0;
+}
+
+/* The base stylesheet fixes header height to --nav-height (single row). The
+   Brother header is two-tier (blue bar + nav bar), so let it size to content;
+   otherwise the white nav row overflows and paints over the hero top. */
+header.brother-header {
+  height: auto;
+}
+
+/* Per-section icons render inline before each item label (mobile default) */
+header.brother-header nav .nav-sections ul > li > img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+/* Mobile (< 900px): the base grid uses a fixed 128px brand column + a wide
+   tools column that together overflow narrow viewports. Let the brand column
+   flex and tighten the tools row so everything fits within the viewport. */
+@media (max-width: 899px) {
+  header.brother-header nav {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    column-gap: 8px;
+    padding: 0 12px;
+  }
+
+  header.brother-header nav .nav-brand img {
+    width: 96px;
+  }
+
+  header.brother-header nav .nav-tools {
+    gap: 4px;
+  }
+}
+
+@media (min-width: 900px) {
+  /* Two-tier: brand+tools on row 1, sections span row 2 */
+  header.brother-header nav {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      'brand . tools'
+      'sections sections sections';
+    align-items: center;
+    gap: 0 24px;
+    max-width: none;
+    padding: 0;
+    height: auto;
+  }
+
+  header.brother-header nav .nav-brand {
+    grid-area: brand;
+    position: relative;
+    z-index: 1;
+    min-height: var(--brother-nav-top-height);
+    padding-left: 32px;
+  }
+
+  header.brother-header nav .nav-tools {
+    grid-area: tools;
+    position: relative;
+    z-index: 1;
+    min-height: var(--brother-nav-top-height);
+    padding-right: 32px;
+  }
+
+  /* Tier 1 blue band — full-bleed behind row 1 */
+  header.brother-header nav::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: var(--brother-nav-top-height);
+    background-color: var(--brother-blue);
+    box-shadow: 0 0 0 100vmax var(--brother-blue);
+    clip-path: inset(0 -100vmax);
+    z-index: 0;
+  }
+
+  /* White logo shows on blue bar */
+  header.brother-header nav .nav-brand img {
+    width: 120px;
+    height: auto;
+  }
+
+  /* Tools icons white on blue */
+  header.brother-header nav .nav-tools button svg,
+  header.brother-header nav .nav-tools .icon svg {
+    color: #fff;
+    fill: #fff;
+  }
+
+  /* Tier 2 — white nav bar */
+  header.brother-header nav .nav-sections {
+    grid-area: sections;
+    background-color: #fff;
+    min-height: var(--brother-nav-bottom-height);
+    padding-inline: 32px;
+  }
+
+  header.brother-header nav .nav-sections .default-content-wrapper > ul {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    margin-inline: auto;
+    max-width: 1264px;
+  }
+
+  header.brother-header nav .nav-sections ul > li > img {
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+  }
+
+  header.brother-header nav .nav-sections .default-content-wrapper > ul > li {
+    display: flex;
+    align-items: center;
+    color: rgb(33 33 33);
+    font-size: 16px;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+}

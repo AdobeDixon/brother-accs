@@ -1,0 +1,87 @@
+/*
+ * Trust-badge strip ("USP" band). Source renders this as a full-width grey band
+ * (rgb(221 221 221)) with four equal columns, each a bold title + a line of
+ * supporting text. This commerce boilerplate has no section-metadata runtime
+ * support, so the grey background is baked onto the block's wrapper here.
+ *
+ * The wrapper stretches edge-to-edge while the content stays within the
+ * section's max width. The source's decorative SVG icons were dropped during
+ * import (their GUID <title> polluted the output), so the migrated cells are
+ * text-only — this CSS matches the source's TEXT layout.
+ *
+ * Values extracted from store.brother.co.uk computed styles.
+ */
+
+/* Grey band, full width */
+.columns-badges-wrapper {
+  background-color: rgb(221 221 221); /* #ddd — source band */
+}
+
+/* Override the section's 1200px max-width so the band spans the viewport.
+   Higher specificity than `main > .section > div` (which sets max-width/padding). */
+main .section > .columns-badges-wrapper {
+  max-width: 100%;
+  padding: 0;
+}
+
+/* Content stays within the section's max width, centered */
+.columns-badges {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  color: rgb(33 33 33);
+}
+
+/* Row of badges — 2-up on mobile */
+.columns-badges > div {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+/* One badge cell: bold title + supporting text, centered in its column */
+.columns-badges > div > div {
+  box-sizing: border-box;
+  flex: 0 0 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 8px;
+  text-align: center;
+}
+
+/* Paragraph reset — the block's cells hold <p><strong>Title</strong></p> + <p>text</p>.
+   Global `p` has 25px vertical margins that must be removed here. */
+.columns-badges p {
+  margin: 0;
+  font-family: var(--brother-body-font);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.15;
+  color: rgb(33 33 33);
+}
+
+/* Title line spacing (source: 5px below the title) */
+.columns-badges p:first-child {
+  margin-bottom: 5px;
+}
+
+/* Bold title (source: "Helvetica Neue Bd" 16px, rendered bold) */
+.columns-badges strong {
+  font-family: var(--brother-heading-font);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 16px;
+}
+
+/* Desktop: four equal columns in a single row */
+@media (min-width: 900px) {
+  .columns-badges {
+    padding: 12px 32px;
+  }
+
+  .columns-badges > div > div {
+    flex: 1;
+  }
+}

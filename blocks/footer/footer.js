@@ -29,10 +29,22 @@ function toggleStoreDropdown(sections, expanded = false) {
  */
 export default async function decorate(block) {
   const root = getRootPath();
-  // Load Footer as Fragment
+  // Load Footer as Fragment. Resolution order: explicit `footer` metadata, then
+  // this project's migrated footer doc at `/content/footer`, then the boilerplate
+  // `/footer`. `/content/footer` is tried before `/footer` because the local dev
+  // server still serves the boilerplate default at `/footer`; the migrated Brother
+  // footer lives under /content. Works for local preview and DA/EDS production.
   const footerMeta = getMetadata('footer');
-  const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
-  const fragment = await loadFragment(footerPath);
+  let fragment = null;
+  if (footerMeta) {
+    fragment = await loadFragment(new URL(footerMeta, window.location).pathname);
+  }
+  if (!fragment) fragment = await loadFragment('/content/footer');
+  if (!fragment) fragment = await loadFragment('/footer');
+
+  // Guard: if no footer fragment resolved (e.g. content not yet published),
+  // bail out rather than throw on fragment.firstElementChild.
+  if (!fragment) return;
 
   // decorate footer DOM
   block.textContent = '';
@@ -167,6 +179,15 @@ export default async function decorate(block) {
     }
   }
   while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
+
+  // Mark up the two content tiers for Brother footer styling: the first section
+  // is the link-column grid, the last is the legal/copyright bar.
+  block.closest('footer')?.classList.add('brother-footer');
+  const sectionDivs = footer.querySelectorAll(':scope > div');
+  if (sectionDivs[0]) sectionDivs[0].classList.add('footer-columns');
+  if (sectionDivs[sectionDivs.length - 1] && sectionDivs.length > 1) {
+    sectionDivs[sectionDivs.length - 1].classList.add('footer-legal');
+  }
 
   block.append(footer);
 }
