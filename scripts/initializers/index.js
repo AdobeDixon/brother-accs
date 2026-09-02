@@ -12,6 +12,8 @@ const clearCookie = (name) => { document.cookie = `${name}=; path=/; Max-Age=0`;
 
 export const getUserTokenCookie = () => getCookie('auth_dropin_user_token');
 
+let customerGroupId;
+
 const setAuthHeaders = (state) => {
   if (state) {
     const token = getUserTokenCookie();
@@ -23,11 +25,22 @@ const setAuthHeaders = (state) => {
     CORE_FETCH_GRAPHQL.removeFetchGraphQlHeader('X-Adobe-Company');
     CORE_FETCH_GRAPHQL.removeFetchGraphQlHeader('Authorization');
     CS_FETCH_GRAPHQL.removeFetchGraphQlHeader('Authorization');
+    CS_FETCH_GRAPHQL.removeFetchGraphQlHeader('Magento-Customer-Group');
+  }
+
+  if (state && customerGroupId) {
+    CS_FETCH_GRAPHQL.setFetchGraphQlHeader('Magento-Customer-Group', customerGroupId);
   }
 };
 
-const setCustomerGroupHeader = (customerGroupId) => {
-  CS_FETCH_GRAPHQL.setFetchGraphQlHeader('Magento-Customer-Group', customerGroupId);
+const setCustomerGroupHeader = (groupId) => {
+  customerGroupId = groupId;
+
+  if (events.lastPayload('authenticated') === true && customerGroupId) {
+    CS_FETCH_GRAPHQL.setFetchGraphQlHeader('Magento-Customer-Group', customerGroupId);
+  } else {
+    CS_FETCH_GRAPHQL.removeFetchGraphQlHeader('Magento-Customer-Group');
+  }
 };
 
 const setAdobeCommerceOptimizerHeader = (adobeCommerceOptimizer) => {

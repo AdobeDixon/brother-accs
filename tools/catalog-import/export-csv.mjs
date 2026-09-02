@@ -12,7 +12,7 @@
 import { writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { products, provenance } from './catalog-data.mjs';
+import { products, configurableProducts, provenance } from './catalog-data.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const csv = (rows) => rows.map((r) => r.map((v) => {
@@ -43,6 +43,11 @@ for (const p of products) {
     p.shortDescription, p.weight, 1, 'Taxable Goods', 'Catalog, Search', p.price.toFixed(2),
     p.sku.toLowerCase(), 100, 1, addl(p), '', '', '']);
 }
+for (const p of configurableProducts) {
+  importRows.push([p.sku, p.set, 'configurable', p.categoryPath, 'base', p.name, p.description,
+    p.shortDescription, 0, 1, 'Taxable Goods', 'Catalog, Search', p.price.toFixed(2),
+    p.sku.toLowerCase(), 0, 0, '', '', '', '']);
+}
 writeFileSync(join(here, 'brother-products-accs-import.csv'), csv(importRows) + '\n');
 
 // --- Provenance CSV ----------------------------------------------------------
@@ -54,4 +59,4 @@ for (const p of products) {
 }
 writeFileSync(join(here, 'brother-products-sources.csv'), csv(srcRows) + '\n');
 
-console.log(`Wrote brother-products-accs-import.csv and brother-products-sources.csv (${products.length} products).`);
+console.log(`Wrote brother-products-accs-import.csv and brother-products-sources.csv (${products.length} simple and ${configurableProducts.length} configurable products).`);

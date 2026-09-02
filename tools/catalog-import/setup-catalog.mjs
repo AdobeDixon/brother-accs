@@ -21,9 +21,10 @@
  *   COMMERCE_TOKEN      Admin/integration bearer token                       (required)
  *   ROOT_CATEGORY_ID    Root to build the tree under (default 2 = Default Category)
  */
-import { attributes, attributeSets, products } from './catalog-data.mjs';
+import { attributes, attributeSets, products, configurableProducts } from './catalog-data.mjs';
 
-const BASE = (process.env.COMMERCE_REST_BASE || '').replace(/\/$/, '');
+const rawBase = (process.env.COMMERCE_REST_BASE || '').replace(/\/$/, '');
+const BASE = rawBase.endsWith('/V1') ? rawBase : `${rawBase}/V1`;
 const TOKEN = process.env.COMMERCE_TOKEN || '';
 const ROOT_ID = Number(process.env.ROOT_CATEGORY_ID || 2);
 const DRY = process.argv.includes('--dry-run');
@@ -50,7 +51,13 @@ function fmtErr(data, text) {
 async function api(method, path, body, { allow404 = false } = {}) {
   const res = await fetch(BASE + path, {
     method,
-    headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+      Store: 'default',
+      'User-Agent': 'Mozilla/5.0',
+    },
     body: body ? JSON.stringify(body) : undefined,
   });
   const text = await res.text();
@@ -243,7 +250,7 @@ async function ensureProduct(prod, setIdByName, optionMaps) {
       name: prod.name,
       price: prod.price,
       attribute_set_id: setIdByName[prod.set],
-      type_id: 'simple',
+      type_id: prod.type || 'simple',
       status: 1,
       visibility: 4, // Catalog, Search
       weight: prod.weight,
@@ -257,6 +264,28 @@ async function ensureProduct(prod, setIdByName, optionMaps) {
   log(`  · ${prod.sku} -> "${prod.set}" / ${prod.categoryPath.split('/').slice(1).join(' > ')}`);
   plan.prod += 1;
   if (!DRY) await api('PUT', `/products/${encodeURIComponent(prod.sku)}`, payload);
+}
+
+async function ensureConfigurableProduct(prod, setIdByName, optionMaps) {
+  const categoryId = await ensureCategoryPath(prod.categoryPath);
+  const payload = {
+    product: {
+      sku: prod.sku, name: prod.name, price: prod.price,
+      attribute_set_id: setIdByName[prod.set], type_id: 'configurable', status: 1,
+      visibility: 4, weight: 0,
+      extension_attributes: { category_links: categoryId > 0 ? [{ category_id: String(categoryId), position: 0 }] : [] },
+      custom_attributes: buildCustomAttributes({ ...prod, brand: 'Brother', custom: {} }, optionMaps),
+    },
+  };
+  log(`  · ${prod.sku} (configurable) -> ${prod.children.join(', ')}`);
+  plan.prod += 1;
+  if (DRY) return;
+  await api('PUT', `/products/${encodeURIComponent(prod.sku)}`, payload);
+  for (const childSku of prod.children) {
+    try { await api('POST', `/configurable-products/${encodeURIComponent(prod.sku)}/child`, { childSku }); } catch (e) {
+      if (!/already|exists/i.test(e.message)) throw e;
+    }
+  }
 }
 
 // ---- Orchestration ---------------------------------------------------------
@@ -280,6 +309,7 @@ async function main() {
   await primeCategories();
   const optionMaps = DRY ? {} : await buildOptionMaps();
   for (const prod of products) await ensureProduct(prod, setIdByName, optionMaps);
+  for (const prod of configurableProducts) await ensureConfigurableProduct(prod, setIdByName, optionMaps);
 
   summary();
 }

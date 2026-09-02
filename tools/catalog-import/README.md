@@ -5,8 +5,16 @@ Commerce (ACCS)**, with the **attributes and attribute sets created *before***
 the products are ingested. Two paths are provided: an **automated script**
 (recommended) and a **flat CSV** for the Admin importer.
 
+For the exact end-to-end procedure used for the current storefront—including
+the final 30-product dataset, configurable products, downloaded images, AEM
+Assets metadata/SKU mapping, publication, shared-catalog access, verification,
+and storefront filtering—see [`BROTHER_CATALOG_RUNBOOK.md`](./BROTHER_CATALOG_RUNBOOK.md).
+
 ## TL;DR
 ```bash
+# Create a local credential file first:
+cp .env.example .env
+
 # preview (no writes)
 COMMERCE_REST_BASE="https://<host>/rest/all/V1" COMMERCE_TOKEN="<token>" \
   node tools/catalog-import/setup-catalog.mjs --dry-run
@@ -14,6 +22,12 @@ COMMERCE_REST_BASE="https://<host>/rest/all/V1" COMMERCE_TOKEN="<token>" \
 COMMERCE_REST_BASE="https://<host>/rest/all/V1" COMMERCE_TOKEN="<token>" \
   node tools/catalog-import/setup-catalog.mjs
 ```
+
+`.env` is gitignored and safe for local secrets. The catalog setup script
+currently consumes `COMMERCE_REST_BASE`, `COMMERCE_TOKEN`, and optionally
+`ROOT_CATEGORY_ID`. `COMMERCE_CLIENT_ID` and `COMMERCE_CLIENT_SECRET` are
+reserved for an OAuth token-minting integration; this script does not send
+client credentials directly to the REST API.
 
 ## Files
 | File | Purpose |

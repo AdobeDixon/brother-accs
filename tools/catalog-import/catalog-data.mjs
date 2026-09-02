@@ -207,6 +207,26 @@ export const products = [
     { scanner_type: 'Network', adf_capacity: 80, scan_speed_ppm: 40, duplex_scan: true, connectivity: ['USB', 'Ethernet'], warranty: '1 Year' }),
 ];
 
+// Verified Brother consumable ranges. Parents are configurable products; the
+// listed SKUs remain purchasable simple children. Add a family only when its
+// child SKU/option relationship is confirmed from a Brother product page.
+export const configurableProducts = [
+  {
+    sku: 'LC424-RANGE', name: 'Brother LC424 Ink Cartridge Range', set: 'Ink & Toner',
+    categoryPath: 'Default Category/Ink & Supplies/Ink Cartridges', price: 13.99,
+    shortDescription: 'Genuine Brother LC424 ink cartridges and value pack.',
+    description: 'Choose a Brother LC424 black single cartridge or LC424 value pack.',
+    configurableAttribute: 'pack_size', children: ['LC424BK', 'LC424VAL'],
+  },
+  {
+    sku: 'TN-2420-RANGE', name: 'Brother TN-2420 Toner Cartridge Range', set: 'Ink & Toner',
+    categoryPath: 'Default Category/Ink & Supplies/Toner', price: 59.99,
+    shortDescription: 'Genuine Brother TN-2420 toner cartridges in single and twin packs.',
+    description: 'Choose a Brother TN-2420 single toner cartridge or twin pack.',
+    configurableAttribute: 'pack_size', children: ['TN-2420', 'TN2420TWIN'],
+  },
+];
+
 // ---- Provenance ------------------------------------------------------------
 // Where each record came from. `priceSource`: 'verified' = price seen in a
 // Brother UK search result; 'representative' = RRP estimate (the live store
