@@ -24,6 +24,35 @@ function toggleStoreDropdown(sections, expanded = false) {
 }
 
 /**
+ * Groups each heading and its following list into a real grid item. Footer
+ * content is authored as one flat sequence (h3, ul, h3, ul...), so CSS alone
+ * would otherwise see only the default-content-wrapper as a grid child.
+ * @param {HTMLElement} section Footer link section
+ */
+function groupFooterColumns(section) {
+  const content = section.querySelector('.default-content-wrapper') || section;
+  const nodes = [...content.children];
+  const columns = [];
+  let column;
+
+  nodes.forEach((node) => {
+    if (node.matches('h2, h3, h4')) {
+      column = document.createElement('div');
+      column.className = 'footer-column';
+      columns.push(column);
+    }
+    if (!column) {
+      column = document.createElement('div');
+      column.className = 'footer-column';
+      columns.push(column);
+    }
+    column.append(node);
+  });
+
+  content.replaceChildren(...columns);
+}
+
+/**
  * loads and decorates the footer
  * @param {Element} block The footer block element
  */
@@ -184,7 +213,10 @@ export default async function decorate(block) {
   // is the link-column grid, the last is the legal/copyright bar.
   block.closest('footer')?.classList.add('brother-footer');
   const sectionDivs = footer.querySelectorAll(':scope > div');
-  if (sectionDivs[0]) sectionDivs[0].classList.add('footer-columns');
+  if (sectionDivs[0]) {
+    sectionDivs[0].classList.add('footer-columns');
+    groupFooterColumns(sectionDivs[0]);
+  }
   if (sectionDivs[sectionDivs.length - 1] && sectionDivs.length > 1) {
     sectionDivs[sectionDivs.length - 1].classList.add('footer-legal');
   }
