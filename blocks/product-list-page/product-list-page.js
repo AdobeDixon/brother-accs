@@ -16,7 +16,9 @@ import { tryRenderAemAssetsImage } from '@dropins/tools/lib/aem/assets.js';
 import { events } from '@dropins/tools/event-bus.js';
 // AEM
 import { readBlockConfig } from '../../scripts/aem.js';
-import { fetchPlaceholders, getProductLink } from '../../scripts/commerce.js';
+import {
+  fetchPlaceholders, getProductLink, STOREFRONT_PRODUCT_FILTER,
+} from '../../scripts/commerce.js';
 import { getSearchStateFromUrl, applySearchStateToUrl } from './search-url.js';
 
 // Initializers
@@ -77,6 +79,7 @@ export default async function decorate(block) {
       pageSize,
       sort: searchState?.sort?.length ? searchState.sort : [{ attribute: 'position', direction: 'DESC' }],
       filter: [
+        STOREFRONT_PRODUCT_FILTER,
         { attribute: 'categoryPath', eq: config.urlpath }, // Add category filter
         // Always add visibility filter to the request
         visibilityFilter,
@@ -93,7 +96,7 @@ export default async function decorate(block) {
       pageSize,
       sort: searchState.sort,
       // Always add visibility filter to the request
-      filter: [visibilityFilter, ...userFilters],
+      filter: [STOREFRONT_PRODUCT_FILTER, visibilityFilter, ...userFilters],
     }).catch((e) => {
       console.error('Error searching for products', e);
     });

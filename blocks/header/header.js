@@ -5,7 +5,9 @@ import { tryRenderAemAssetsImage } from '@dropins/tools/lib/aem/assets.js';
 import { getConfigValue } from '@dropins/tools/lib/aem/configs.js';
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
-import { fetchPlaceholders, getProductLink, rootLink } from '../../scripts/commerce.js';
+import {
+  fetchPlaceholders, getProductLink, rootLink, STOREFRONT_PRODUCT_FILTER,
+} from '../../scripts/commerce.js';
 
 import renderAuthCombine from './renderAuthCombine.js';
 import { renderAuthDropdown } from './renderAuthDropdown.js';
@@ -502,6 +504,7 @@ export default async function decorate(block) {
               phrase,
               pageSize,
               filter: [
+                STOREFRONT_PRODUCT_FILTER,
                 { attribute: 'visibility', in: ['Search', 'Catalog, Search'] },
               ],
             }, { scope: 'popover' });

@@ -60,6 +60,47 @@ export const PRODUCT_TEMPLATE_PATHS = [
   'products/default',
 ];
 
+// Products intentionally exposed by this storefront. The Commerce backend also
+// contains legacy/demo catalog data, so every Product Discovery request is
+// scoped to this list. Keep this in sync with the curated catalog import.
+export const STOREFRONT_PRODUCT_SKUS = [
+  'PJ862',
+  'PJ822',
+  'PJ823',
+  'HLL2400DWE',
+  'HLL1240W',
+  'HLL8260CDW',
+  'HLL2445DW',
+  'MFCJ4350DW',
+  'MFCJ6530DW',
+  'PTD210VP',
+  'DR2510',
+  'BU330CL',
+  'WT320CL',
+  'LC223-CONF',
+  'LC223BK',
+  'LC223C',
+  'LC223M',
+  'LC223Y',
+  'TN421-CONF',
+  'TN421BK',
+  'TN421C',
+  'TN421M',
+  'TN421Y',
+  'TZE12-CONF',
+  'TZE231',
+  'TZE131',
+  'TZE431',
+  'TZE531',
+  'TZE631',
+  'TZE731',
+];
+
+export const STOREFRONT_PRODUCT_FILTER = {
+  attribute: 'sku',
+  in: STOREFRONT_PRODUCT_SKUS,
+};
+
 // PATHS
 export const SUPPORT_PATH = '/support';
 export const PRIVACY_POLICY_PATH = '/privacy-policy';
