@@ -139,11 +139,24 @@ export default async function decorate(block) {
           </div>
           <div class="product-details__add-to-cart-status" role="status" aria-live="polite"></div>
         </div>
-        <div class="product-details__description"></div>
-        <div class="product-details__attributes"></div>
       </div>
     </div>
     <div class="product-details__grid-ordering ${isGridOrderingView ? 'product-details__grid-ordering--enabled' : 'product-details__grid-ordering--disabled'}"></div>
+    <div class="product-details__content">
+      <section class="product-details__description" id="product-overview">
+        <h2>Product Details</h2>
+        <div class="product-details__description-layout">
+          <div class="product-details__description-content"></div>
+          <figure class="product-details__description-image" hidden>
+            <img loading="lazy">
+          </figure>
+        </div>
+      </section>
+      <section class="product-details__attributes" id="product-specifications">
+        <h2>Specifications</h2>
+        <div class="product-details__attributes-content"></div>
+      </section>
+    </div>
   `);
 
   const $alert = fragment.querySelector('.product-details__alert');
@@ -162,11 +175,20 @@ export default async function decorate(block) {
   // announced instead of relying on the button's text/disabled state
   // changing, which isn't announced by screen readers on its own.
   const $addToCartStatus = fragment.querySelector('.product-details__add-to-cart-status');
-  const $description = fragment.querySelector('.product-details__description');
-  const $attributes = fragment.querySelector('.product-details__attributes');
+  const $description = fragment.querySelector('.product-details__description-content');
+  const $descriptionImage = fragment.querySelector('.product-details__description-image');
+  const $attributes = fragment.querySelector('.product-details__attributes-content');
   const $gridOrderingContainer = fragment.querySelector('.product-details__grid-ordering');
 
   block.replaceChildren(fragment);
+
+  const primaryImage = product?.images?.[0];
+  if (primaryImage?.url) {
+    const image = $descriptionImage.querySelector('img');
+    image.src = primaryImage.url;
+    image.alt = primaryImage.label || product.name || '';
+    $descriptionImage.hidden = false;
+  }
 
   const gallerySlots = {
     CarouselThumbnail: (ctx) => {

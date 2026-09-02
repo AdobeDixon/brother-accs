@@ -52,7 +52,10 @@ No events are emitted by this block. -->
 3. **Add to Cart**: Users can add products to cart or update existing cart items
 4. **Wishlist Management**: Users can add/remove products from wishlist
 5. **Image Gallery**: Users can view product images in desktop thumbnail or mobile carousel format
-6. **SEO Optimization**: Sets JSON-LD structured data and meta tags for search engines
+6. **Editorial Product Overview**: The existing Commerce description is paired with the product's primary ACCS image in a full-width section beneath the purchase area
+7. **Specifications**: Existing ACCS product attributes render in a separate full-width section
+8. **B2B Grid Ordering**: Configurable products can expose a responsive bulk-order table without changing the primary PDP purchase flow
+9. **SEO Optimization**: Sets JSON-LD structured data and meta tags for search engines
 
 ### Error Handling
 
