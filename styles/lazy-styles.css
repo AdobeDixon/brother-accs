@@ -1,1 +1,521 @@
-/* add global styles that can be loaded post LCP here */
+/* stylelint-disable no-descending-specificity -- drop-in markup requires scoped overrides. */
+
+/* Shared Brother account and B2B visual system. Functionality remains in drop-ins. */
+body.columns {
+  --shape-border-radius-1: 2px;
+  --shape-border-radius-2: 3px;
+  --shape-border-radius-3: 4px;
+  --shape-shadow-1: 0 5px 20px rgb(0 0 0 / 8%);
+  --shape-shadow-2: 0 8px 28px rgb(0 0 0 / 10%);
+  --type-display-2-font: normal normal 700 3.2rem/4rem var(--brother-heading-font);
+  --type-display-3-font: normal normal 700 2.8rem/3.6rem var(--brother-heading-font);
+  --type-headline-1-font: normal normal 700 2.4rem/3.2rem var(--brother-heading-font);
+  --type-headline-2-default-font: normal normal 500 2rem/2.8rem var(--brother-heading-font);
+  --type-headline-2-strong-font: normal normal 700 2rem/2.8rem var(--brother-heading-font);
+  --type-body-1-default-font: normal normal 400 1.6rem/2.4rem var(--brother-body-font);
+  --type-body-1-strong-font: normal normal 700 1.6rem/2.4rem var(--brother-body-font);
+  --type-body-1-emphasized-font: normal normal 600 1.6rem/2.4rem var(--brother-body-font);
+  --type-body-2-default-font: normal normal 400 1.4rem/2rem var(--brother-body-font);
+  --type-body-2-strong-font: normal normal 700 1.4rem/2rem var(--brother-body-font);
+  --type-button-1-font: normal normal 700 1.6rem/2.2rem var(--brother-heading-font);
+  --type-button-2-font: normal normal 700 1.4rem/2rem var(--brother-heading-font);
+}
+
+body.columns main {
+  align-content: flex-start;
+  column-gap: 40px;
+  max-width: 1440px;
+  margin-inline: auto;
+}
+
+body.columns main > .section:not(.commerce-account-nav-container) { min-width: 0; }
+
+body.columns main > .section:not(.commerce-account-nav-container) h1,
+body.columns main > .section:not(.commerce-account-nav-container) h2,
+body.columns main > .section:not(.commerce-account-nav-container) h3,
+body.columns main .dropin-header-container__title {
+  color: var(--brother-text);
+  font-family: var(--brother-heading-font);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+body.columns main .dropin-header-container {
+  margin-bottom: 28px;
+  padding-bottom: 0;
+}
+
+body.columns main .dropin-header-container__title {
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+body.columns main .dropin-header-container__divider {
+  margin: 14px 0 0;
+  border-color: #dedede;
+  border-width: 0 0 3px;
+}
+
+body.columns main .dropin-card,
+body.columns main .account-orders-list-card,
+body.columns main .account-address-card,
+body.columns main .account-customer-information-card,
+body.columns main .account-company-profile-card,
+body.columns main .company-management-company-structure-card {
+  border: 1px solid #d7d7d7;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: none;
+}
+
+body.columns main .account-orders-list { gap: 20px; }
+
+body.columns main .account-orders-list-card { padding: 0; }
+
+body.columns main .dropin-card:hover,
+body.columns main .account-orders-list-card:hover { border-color: #a9a9a9; }
+
+body.columns main .account-orders-list-card__content {
+  display: grid;
+  grid-area: details;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 22px;
+  color: #3f3f3f;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+body.columns main .account-orders-list-card > .dropin-card__content {
+  display: grid;
+  grid-template-areas:
+    'details action'
+    'images action';
+  grid-template-columns: minmax(0, 1fr) 48px;
+  gap: 20px 24px;
+  align-items: center;
+  min-height: 230px;
+  padding: 26px 30px;
+}
+
+body.columns main .account-orders-list-card__content > p { margin: 0; }
+
+body.columns main .account-orders-list-card__content strong,
+body.columns main .account-orders-list-card__content--product-name {
+  color: var(--brother-text);
+  font-weight: 600;
+}
+
+body.columns main .account-orders-list-card__content > div:first-child {
+  grid-column: 1;
+  grid-row: 1;
+  width: fit-content;
+  padding: 4px 10px;
+  border-left: 3px solid var(--brother-blue);
+  background: #f1f3f8;
+  color: var(--brother-text);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+body.columns main .account-orders-list-card__content > p:nth-of-type(2) {
+  grid-column: 2 / -1;
+  grid-row: 1;
+  justify-self: end;
+  color: var(--brother-text);
+  font-family: var(--brother-heading-font);
+  font-weight: 700;
+}
+
+body.columns main .account-orders-list-card__content > p:nth-of-type(1),
+body.columns main .account-orders-list-card__content > p:nth-of-type(3),
+body.columns main .account-orders-list-card__content > p[data-testid='itemsAmount'] {
+  min-height: 66px;
+  margin-top: 18px;
+  padding: 12px 14px;
+  border-top: 3px solid var(--brother-blue);
+  background: #f6f7fa;
+}
+
+body.columns main .account-orders-list-card__content > p:nth-of-type(1) {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+body.columns main .account-orders-list-card__content > p:nth-of-type(3) {
+  grid-column: 2;
+  grid-row: 2;
+  color: var(--brother-text);
+  font-family: var(--brother-heading-font);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+body.columns main .account-orders-list-card__content > p:nth-of-type(3)::before {
+  display: block;
+  margin-bottom: 2px;
+  color: #626262;
+  content: 'Order total';
+  font-family: var(--brother-body-font);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+body.columns main .account-orders-list-card__content > p[data-testid='itemsAmount'] {
+  grid-column: 3;
+  grid-row: 2;
+  font-weight: 600;
+}
+
+body.columns main .account-orders-list-card__content > p[data-testid='itemsAmount']::before {
+  display: block;
+  margin-bottom: 2px;
+  color: #626262;
+  content: 'Products';
+  font-size: 12px;
+  font-weight: 400;
+}
+
+body.columns main .account-orders-list-card__content--product-name {
+  grid-column: 1 / -1;
+  display: none;
+}
+
+body.columns main p[data-testid='itemsAmount'] + .account-orders-list-card__content--product-name {
+  margin-top: 0;
+}
+
+body.columns main .account-orders-list-card__images {
+  display: flex;
+  grid-area: images;
+  align-items: center;
+  min-height: 110px;
+  margin: 0;
+  padding: 12px 18px;
+  background: #f6f7fa;
+}
+
+body.columns main .account-orders-list-card__images .dropin-content-grid__content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 240px)) !important;
+  gap: 16px;
+  width: 100%;
+}
+
+body.columns main .account-orders-list-card__images [data-slot='OrderItemImage'] {
+  min-width: 0;
+}
+
+body.columns main .account-order-product-card {
+  display: grid;
+  grid-template-rows: minmax(42px, auto) 112px;
+  gap: 10px;
+  height: 100%;
+  padding: 14px;
+  border: 1px solid #d8dce7;
+  border-top: 3px solid var(--brother-blue);
+  background: #fff;
+  color: var(--brother-text);
+  text-decoration: none;
+}
+
+body.columns main .account-order-product-card:hover,
+body.columns main .account-order-product-card:focus-visible {
+  border-color: var(--brother-blue);
+  box-shadow: 0 4px 14px rgb(0 0 0 / 8%);
+}
+
+body.columns main .account-order-product-card::before {
+  font-family: var(--brother-heading-font);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+  content: attr(aria-label);
+}
+
+body.columns main .account-orders-list-card__images img,
+body.columns main .account-orders-list-card__images picture {
+  place-self: center;
+  width: 112px;
+  height: 112px;
+  object-fit: contain;
+}
+
+body.columns main .account-orders-list-card__actions {
+  display: flex;
+  grid-area: action;
+  align-items: center;
+  justify-content: center;
+}
+
+body.columns main .account-orders-list-card__actions a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--brother-blue);
+  border-radius: 2px;
+  background: var(--brother-blue);
+  color: #fff;
+}
+
+body.columns main .account-orders-list-card__actions a:hover,
+body.columns main .account-orders-list-card__actions a:focus-visible {
+  border-color: var(--brother-blue-hover);
+  background: var(--brother-blue-hover);
+}
+
+body.columns main .account-orders-list-card__actions svg {
+  color: currentcolor;
+  fill: currentcolor;
+  stroke: currentcolor;
+}
+
+body.columns main .dropin-button,
+body.columns main button.dropin-button,
+body.columns main .dropin-action-button {
+  min-height: 44px;
+  border-radius: 2px;
+  font-family: var(--brother-heading-font);
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+body.columns main .dropin-button--primary,
+body.columns main button.dropin-button--primary {
+  border-color: var(--brother-blue);
+  background: var(--brother-blue);
+  color: #fff;
+}
+
+body.columns main .dropin-button--primary:hover,
+body.columns main button.dropin-button--primary:hover {
+  border-color: var(--brother-blue-hover);
+  background: var(--brother-blue-hover);
+}
+
+body.columns main input,
+body.columns main textarea,
+body.columns main select,
+body.columns main .dropin-picker { border-radius: 2px; }
+
+body.columns main .dropin-table {
+  overflow: hidden;
+  border: 1px solid #d7d7d7;
+  border-radius: 2px;
+  background: #fff;
+}
+
+body.columns main .dropin-table__header { background: #f1f3f8; }
+
+body.columns main .dropin-table__header__row th {
+  color: var(--brother-text);
+  font-family: var(--brother-heading-font);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+body.columns main .dropin-table__body__row td {
+  border-top: 1px solid #e3e3e3;
+  color: #3f3f3f;
+}
+
+body.columns main .dropin-table__body__row:hover td { background: #fafafa; }
+
+body.columns main .account-addresses-wrapper,
+body.columns main .account-customer-information-card__wrapper,
+body.columns main .account-company-profile-card__wrapper,
+body.columns main .company-management-company-credit-grid { gap: 20px; }
+
+body.columns main .account-address-card,
+body.columns main .account-customer-information-card,
+body.columns main .account-company-profile-card { padding: 24px; }
+
+body.columns main .account-company-profile-card > .dropin-card__content {
+  padding: 4px;
+}
+
+body.columns main .account-company-profile-card__wrapper {
+  position: relative;
+}
+
+body.columns main .account-company-profile-card__actions {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  right: 0;
+}
+
+body.columns main .account-company-profile-card__actions .dropin-button {
+  min-width: 92px;
+  border: 2px solid var(--brother-blue);
+  background: #fff;
+  color: var(--brother-blue);
+}
+
+body.columns main .account-company-profile-card__content {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  padding-top: 54px;
+}
+
+body.columns main .account-company-profile-card__content p {
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+body.columns main .account-company-profile-card__content > p {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+body.columns main .account-company-profile-card__content > p + p {
+  margin-top: -14px;
+}
+
+body.columns main .company-legal-address,
+body.columns main .company-contacts,
+body.columns main .company-payment-methods,
+body.columns main .company-shipping-methods {
+  padding: 20px;
+  border-top: 3px solid var(--brother-blue);
+  background: #f7f8fb;
+}
+
+body.columns main .company-contact + .company-contact {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid #d7d7d7;
+}
+
+body.columns main .payment-methods-list,
+body.columns main .shipping-methods-list {
+  margin-bottom: 0;
+  padding-left: 20px;
+}
+
+body.columns main .account-address-card__labels,
+body.columns main [class*='status'] { border-radius: 2px; }
+
+body.columns main .requisition-list-grid,
+body.columns main [class*='requisition-list'] { letter-spacing: 0; }
+
+body.columns main [class*='requisition-list'] a,
+body.columns main [class*='company-management'] a,
+body.columns main .requisition-list-grid .dropin-table a {
+  color: var(--brother-blue);
+  font-weight: 600;
+}
+
+body.columns main .dropin-in-line-alert,
+body.columns main .dropin-pagination button,
+body.columns main .dropin-picker button { border-radius: 2px; }
+
+body.columns main .filterButtons {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #d7d7d7;
+}
+
+body.columns main .filterButtons .dropin-button--tertiary {
+  min-height: 42px;
+  padding: 0 0 10px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--brother-text);
+}
+
+body.columns main .filterButtons .dropin-button--tertiary:hover,
+body.columns main .filterButtons .dropin-button--tertiary:focus-visible {
+  border-bottom-color: var(--brother-blue);
+  color: var(--brother-blue);
+}
+
+body.columns main .user-actions {
+  display: flex;
+  gap: 8px;
+}
+
+body.columns main .user-actions .dropin-action-button {
+  min-height: 36px;
+  padding: 6px 10px;
+  border: 1px solid var(--brother-blue);
+  background: #fff;
+  color: var(--brother-blue);
+}
+
+body.columns main .dropin-table__body__cell[data-label='Status'] {
+  font-weight: 700;
+}
+
+body.columns main .paginationContainer,
+body.columns main .table-footer {
+  margin-top: 20px;
+}
+
+@media (max-width: 899px) {
+  body.columns main { column-gap: 0; }
+
+  body.columns main .account-orders-list-card > .dropin-card__content {
+    grid-template-areas:
+      'details action'
+      'images images';
+    grid-template-columns: minmax(0, 1fr) 44px;
+    gap: 20px 14px;
+    padding: 20px;
+  }
+
+  body.columns main .account-orders-list-card__content {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  body.columns main .account-orders-list-card__content > p:nth-of-type(2) {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-top: 12px;
+  }
+
+  body.columns main .account-orders-list-card__content > p:nth-of-type(1) {
+    grid-column: 1 / -1;
+  }
+
+  body.columns main .account-orders-list-card__content > p:nth-of-type(3) {
+    grid-column: 1;
+  }
+
+  body.columns main .account-orders-list-card__content > p[data-testid='itemsAmount'] {
+    grid-column: 2;
+  }
+
+  body.columns main .account-orders-list-card__images img,
+  body.columns main .account-orders-list-card__images picture {
+    width: 96px;
+    height: 96px;
+  }
+
+  body.columns main .account-orders-list-card__images .dropin-content-grid__content {
+    grid-template-columns: 1fr !important;
+  }
+
+  body.columns main .account-company-profile-card__content {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 900px) {
+  body.columns main {
+    display: grid;
+    grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+  }
+
+  body.columns main > .section {
+    width: auto;
+    max-width: none;
+  }
+}

@@ -52,6 +52,8 @@ export default async function decorate(block) {
           const { data, defaultImageProps } = ctx;
           const anchor = document.createElement('a');
           anchor.href = createProductLink(ctx.data);
+          anchor.className = 'account-order-product-card';
+          anchor.setAttribute('aria-label', data.productName);
 
           tryRenderAemAssetsImage(ctx, {
             alias: data.product.sku,
