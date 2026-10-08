@@ -39,6 +39,13 @@ the repo. With the Configuration Service, path mappings live in the site's **pub
 Services configuration to **"aem.live with repoless config setup"**. When it is left on the file
 based setup, AEM looks for `paths.json` in the code repo and fails with a 404.
 
+AEM reads the mapping from `https://<branch>--brother-accs-forms--adobedixon.aem.live/config.json`.
+This repo ships its own `config.json` (the storefront's Commerce settings), and that file is
+served on **every** site that uses this code. It shadows the Configuration Service `public`
+section, so the mapping is also declared in the repo file as `public.paths`. Commerce reads only
+`public.default` and root keys that start with `/`, so the extra key has no effect on the
+storefront.
+
 Adding a `paths.json` file to this repo is **not** the fix. Publishing the form into
 `brother-accs` would make EDS fetch the form from DA.live, because a site has a single content
 source. The form therefore gets its own repoless site, with the mapping held in that site's
