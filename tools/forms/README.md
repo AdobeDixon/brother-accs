@@ -31,6 +31,24 @@ DA.live  /careers/apply ──▶ brother-accs (EDS storefront) ── Embed Ada
 * Pages under `/content/forms/af/` (forms site and AEM author) skip Commerce initialisation,
   header and footer (`IS_FORMS_PAGE` in `scripts/scripts.js`). All storefront pages are unchanged.
 
+## Delivery options
+
+The `embed-adaptive-form` block accepts either of these links:
+
+1. **AEM Forms publish, which is what `/careers/apply` uses today.**
+   `https://publish-p154632-e1630770.adobeaemcloud.com/content/forms/af/brother-careers---job-application`
+   The block fetches `…/jcr:content/root/section/form.html` straight from AEM publish. This works
+   as soon as the form is published in AEM and needs no Edge Delivery publishing of the form. AEM
+   publish must send CORS headers for the storefront origins, which it does today. It currently
+   reflects *any* origin with credentials allowed, so restrict that to the storefront domains.
+2. **The `brother-accs-forms` Edge Delivery site.**
+   `https://main--brother-accs-forms--adobedixon.aem.live/content/forms/af/<form>`
+   The form is cached at the edge and doesn't depend on AEM publish availability. This requires
+   the AEM Edge Delivery Services configuration below.
+
+Editing the form in Universal Editor needs the Edge Delivery Services configuration either way
+(see the next section).
+
 ## Why `/paths.json` returns 404
 
 The storefront uses the EDS Configuration Service, so there is no `fstab.yaml` or `paths.json` in
