@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "code": {
+    "owner": "adobedixon",
+    "repo": "brother-accs",
+    "source": {
+      "type": "github",
+      "url": "https://github.com/adobedixon/brother-accs"
+    }
+  },
+  "content": {
+    "source": {
+      "type": "markup",
+      "url": "https://author-p154632-e1630770.adobeaemcloud.com/bin/franklin.delivery/adobedixon/brother-accs-forms/main",
+      "suffix": ".html"
+    }
+  },
+  "headers": {
+    "/content/forms/af/**": [
+      {
+        "key": "access-control-allow-origin",
+        "value": "*"
+      }
+    ]
+  },
+  "public": {
+    "paths": {
+      "mappings": [
+        "/:/"
+      ],
+      "includes": [
+        "/content/forms/af/",
+        "/content/dam/formsanddocuments/"
+      ]
+    }
+  }
+}

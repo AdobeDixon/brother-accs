@@ -84,6 +84,27 @@
           "...": "../blocks/product-*/_*.json#/definitions"
         }
       ]
+    },
+    {
+      "title": "Forms",
+      "id": "forms",
+      "components": [
+        {
+          "...": "../blocks/form/_form.json#/definitions"
+        },
+        {
+          "...": "../blocks/embed-adaptive-form/_*.json#/definitions"
+        }
+      ]
+    },
+    {
+      "title": "Custom Form Components",
+      "id": "custom-components",
+      "components": [
+        {
+          "...": "../blocks/form/components/range/_range.json#/definitions"
+        }
+      ]
     }
   ]
 }

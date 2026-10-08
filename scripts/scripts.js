@@ -22,6 +22,10 @@ import {
   IS_DA,
 } from './commerce.js';
 
+// Adaptive Form pages authored in AEM Forms (served by the brother-accs-forms site and AEM author
+// in Universal Editor). They render the form only, without the Commerce storefront chrome.
+const IS_FORMS_PAGE = window.location.pathname.startsWith('/content/forms/af/');
+
 /*
  * Trusted Types default policy.
  *
@@ -145,7 +149,7 @@ function buildAutoBlocks(main) {
  * Decorates formatted links to style them as buttons.
  * @param {HTMLElement} main The main container element
  */
-function decorateButtons(main) {
+export function decorateButtons(main) {
   main.querySelectorAll('p a[href]').forEach((a) => {
     a.title = a.title || a.textContent;
     const p = a.closest('p');
@@ -203,14 +207,18 @@ async function loadEager(doc) {
 
   const main = doc.querySelector('main');
   if (main) {
-    try {
-      await initializeCommerce();
+    if (IS_FORMS_PAGE) {
       decorateMain(main);
-      applyTemplates(doc);
-      await loadCommerceEager();
-    } catch (e) {
-      console.error('Error initializing commerce configuration:', e);
-      loadErrorPage(418);
+    } else {
+      try {
+        await initializeCommerce();
+        decorateMain(main);
+        applyTemplates(doc);
+        await loadCommerceEager();
+      } catch (e) {
+        console.error('Error initializing commerce configuration:', e);
+        loadErrorPage(418);
+      }
     }
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
@@ -231,7 +239,7 @@ async function loadEager(doc) {
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
-  loadHeader(doc.querySelector('header'));
+  if (!IS_FORMS_PAGE) loadHeader(doc.querySelector('header'));
 
   const main = doc.querySelector('main');
   await loadSections(main);
@@ -240,9 +248,10 @@ async function loadLazy(doc) {
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();
 
-  loadFooter(doc.querySelector('footer'));
-
-  loadCommerceLazy();
+  if (!IS_FORMS_PAGE) {
+    loadFooter(doc.querySelector('footer'));
+    loadCommerceLazy();
+  }
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();

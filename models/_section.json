@@ -205,7 +205,9 @@
         "product-recommendations",
         "targeted-block",
         "text",
-        "image"
+        "image",
+        "form",
+        "embed-adaptive-form"
       ]
     }
   ]
