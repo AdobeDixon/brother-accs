@@ -3,7 +3,8 @@
  * Based on the embed-adaptive-form block from https://github.com/adobe-rnd/aem-boilerplate-forms
  *
  * Same-origin links load the form page as a fragment (upstream behaviour).
- * Links to the AEM-sourced forms site (e.g. https://main--brother-accs-forms--adobedixon.aem.live/
+ * Links to AEM Forms publish (e.g. https://publish-p154632-e1630770.adobeaemcloud.com/content/forms/
+ * af/<form>) or to the AEM-sourced forms site (https://main--brother-accs-forms--adobedixon.aem.live/
  * content/forms/af/<form>) are fetched cross-origin, so DA.live pages can embed forms authored in
  * AEM Forms with Universal Editor.
  */
@@ -15,8 +16,16 @@ const FORMS_HOSTS = [
   /^([a-z0-9-]+--)?brother-accs-forms--adobedixon\.aem\.(page|live)$/,
 ];
 
+// AEM Forms publish tiers that serve form definitions directly
+const AEM_PUBLISH_HOSTS = [
+  /^publish-p154632-e1630770\.adobeaemcloud\.com$/,
+];
+
+const isAemPublishHost = (url) => AEM_PUBLISH_HOSTS.some((host) => host.test(url.hostname));
+
 function isAllowedFormsHost(url) {
   return url.origin === window.location.origin
+    || isAemPublishHost(url)
     || FORMS_HOSTS.some((host) => host.test(url.hostname));
 }
 
@@ -47,10 +56,20 @@ function getFormUrl(link) {
  */
 async function fetchRemoteForm(url) {
   const pathname = url.pathname.replace(/(\.plain)?\.html$/, '');
-  const resp = await fetch(`${url.origin}${pathname}.plain.html`);
+  const source = isAemPublishHost(url)
+    ? `${url.origin}${pathname}/jcr:content/root/section/form.html`
+    : `${url.origin}${pathname}.plain.html`;
+  const resp = await fetch(source);
   if (!resp.ok) return null;
   const doc = new DOMParser().parseFromString(await resp.text(), 'text/html');
-  return doc.querySelector('div.form');
+  const form = doc.querySelector('div.form');
+  // AEM publish markup carries AEM Universal Editor instrumentation that doesn't apply here
+  [form, ...(form?.querySelectorAll('*') || [])].forEach((el) => {
+    [...(el?.attributes || [])]
+      .filter(({ name }) => name.startsWith('data-aue-'))
+      .forEach(({ name }) => el.removeAttribute(name));
+  });
+  return form;
 }
 
 function showError(block, message) {
