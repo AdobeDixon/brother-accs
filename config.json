@@ -1,5 +1,14 @@
 {
   "public": {
+    "paths": {
+      "mappings": [
+        "/:/"
+      ],
+      "includes": [
+        "/content/forms/af/",
+        "/content/dam/formsanddocuments/"
+      ]
+    },
     "default": {
       "commerce-endpoint": "https://na1-sandbox.api.commerce.adobe.com/NvAX86uD75zMunYMokrz5D/graphql",
       "headers": {

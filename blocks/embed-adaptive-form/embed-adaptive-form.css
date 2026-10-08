@@ -1,0 +1,61 @@
+/* Brother brand overrides for Adaptive Forms embedded on storefront pages */
+.embed-adaptive-form {
+  --background-color-primary: var(--color-neutral-50);
+  --label-color: var(--brother-text);
+  --border-color: var(--color-neutral-600);
+  --form-error-color: var(--color-alert-800);
+  --form-invalid-border-color: var(--color-alert-800);
+  --button-primary-color: var(--brother-blue);
+  --button-primary-hover-color: var(--brother-blue-hover);
+  --button-secondary-color: var(--brother-text);
+  --form-font-size-m: 1.25rem;
+  --form-font-size-s: 1rem;
+  --form-font-size-xs: 0.875rem;
+  --form-padding: 0;
+  --form-field-horz-gap: 24px;
+  --form-field-vert-gap: 16px;
+  --form-label-font-weight: 700;
+  --form-button-padding: 12px 32px;
+  --form-wizard-number-color: var(--brother-blue);
+  --form-wizard-padding-bottom: 32px;
+
+  /* derived tokens are resolved on :root in form.css, so they are re-declared here */
+  --form-label-color: var(--label-color);
+  --form-paragraph-color: var(--label-color);
+  --form-fieldset-legend-color: var(--label-color);
+  --form-upload-color: var(--label-color);
+  --form-input-border-color: var(--border-color);
+  --form-button-background-color: var(--button-primary-color);
+  --form-button-background-hover-color: var(--button-primary-hover-color);
+  --form-card-selected-border-color: var(--button-primary-color);
+  --form-card-selected-shadow: 0 0 0 1px var(--button-primary-color);
+
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: var(--brother-body-font);
+  color: var(--brother-text);
+}
+
+.embed-adaptive-form .form form button {
+  border-radius: 0; /* Brother CTAs use square corners */
+}
+
+.embed-adaptive-form .form form input,
+.embed-adaptive-form .form form select,
+.embed-adaptive-form .form form textarea {
+  border-radius: 0;
+}
+
+.embed-adaptive-form .form form input:focus-visible,
+.embed-adaptive-form .form form select:focus-visible,
+.embed-adaptive-form .form form textarea:focus-visible,
+.embed-adaptive-form .form form button:focus-visible {
+  outline: 2px solid var(--brother-blue);
+  outline-offset: 2px;
+}
+
+.embed-adaptive-form .embed-adaptive-form-error {
+  padding: var(--spacing-small);
+  border-left: 4px solid var(--color-alert-800);
+  background-color: var(--color-alert-200);
+}
