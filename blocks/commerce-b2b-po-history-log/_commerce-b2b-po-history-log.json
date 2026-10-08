@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce B2B PO History Log",
+      "id": "commerce-b2b-po-history-log",
+      "model": "commerce-b2b-po-history-log",
+      "plugins": {
+        "da": {
+          "name": "commerce-b2b-po-history-log",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

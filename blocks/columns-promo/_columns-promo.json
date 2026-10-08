@@ -1,0 +1,20 @@
+{
+  "definitions": [
+    {
+      "title": "Columns (Promo)",
+      "id": "columns-promo",
+      "model": "columns",
+      "filter": "columns",
+      "plugins": {
+        "da": {
+          "name": "columns-promo",
+          "rows": 1,
+          "columns": 2,
+          "behaviour": "columns"
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

@@ -22,6 +22,27 @@
       ]
     },
     {
+      "title": "Brother",
+      "id": "brother",
+      "components": [
+        {
+          "...": "../blocks/hero-split/_*.json#/definitions"
+        },
+        {
+          "...": "../blocks/hero-overlay/_*.json#/definitions"
+        },
+        {
+          "...": "../blocks/cards-category/_*.json#/definitions"
+        },
+        {
+          "...": "../blocks/columns-badges/_*.json#/definitions"
+        },
+        {
+          "...": "../blocks/columns-promo/_*.json#/definitions"
+        }
+      ]
+    },
+    {
       "title": "Blocks",
       "id": "blocks",
       "components": [

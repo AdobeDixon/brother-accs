@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Company Accept Invitation",
+      "id": "commerce-company-accept-invitation",
+      "model": "commerce-company-accept-invitation",
+      "plugins": {
+        "da": {
+          "name": "commerce-company-accept-invitation",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

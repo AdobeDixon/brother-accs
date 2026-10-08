@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce B2B Company Hierarchy",
+      "id": "commerce-b2b-company-hierarchy",
+      "model": "commerce-b2b-company-hierarchy",
+      "plugins": {
+        "da": {
+          "name": "commerce-b2b-company-hierarchy",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

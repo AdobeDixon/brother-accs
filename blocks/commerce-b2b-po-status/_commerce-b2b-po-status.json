@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce B2B PO Status",
+      "id": "commerce-b2b-po-status",
+      "model": "commerce-b2b-po-status",
+      "plugins": {
+        "da": {
+          "name": "commerce-b2b-po-status",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

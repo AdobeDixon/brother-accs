@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce B2B PO Approval Rules List",
+      "id": "commerce-b2b-po-approval-rules-list",
+      "model": "commerce-b2b-po-approval-rules-list",
+      "plugins": {
+        "da": {
+          "name": "commerce-b2b-po-approval-rules-list",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

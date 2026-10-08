@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce B2B Requisition List",
+      "id": "commerce-b2b-requisition-list",
+      "model": "commerce-b2b-requisition-list",
+      "plugins": {
+        "da": {
+          "name": "commerce-b2b-requisition-list",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

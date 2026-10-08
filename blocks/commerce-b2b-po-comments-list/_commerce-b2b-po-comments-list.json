@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce B2B PO Comments List",
+      "id": "commerce-b2b-po-comments-list",
+      "model": "commerce-b2b-po-comments-list",
+      "plugins": {
+        "da": {
+          "name": "commerce-b2b-po-comments-list",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

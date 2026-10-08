@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Seller Assisted Buying Settings",
+      "id": "commerce-seller-assisted-buying-settings",
+      "model": "commerce-seller-assisted-buying-settings",
+      "plugins": {
+        "da": {
+          "name": "commerce-seller-assisted-buying-settings",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

@@ -1,0 +1,70 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Account Nav",
+      "id": "commerce-account-nav",
+      "model": "commerce-account-nav",
+      "filter": "commerce-account-nav",
+      "plugins": {
+        "da": {
+          "unsafeHTML": "<div class=\"commerce-account-nav\"><div><div><strong>label</strong></div><div><strong>icon</strong></div><div><strong>permission</strong></div></div><div><div><p><strong><a href=\"/customer/account\">My account</a></strong></p><p>Account details</p></div><div>User</div><div>all</div></div></div>"
+        }
+      }
+    },
+    {
+      "title": "Account Nav Item",
+      "id": "commerce-account-nav-item",
+      "model": "commerce-account-nav-item",
+      "plugins": {
+        "da": {
+          "rows": 1,
+          "columns": 3,
+          "fields": [
+            { "name": "label", "selector": "div:nth-child(1)" },
+            { "name": "icon", "selector": "div:nth-child(2)" },
+            { "name": "permission", "selector": "div:nth-child(3)" }
+          ]
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "commerce-account-nav-item",
+      "fields": [
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "label",
+          "label": "Label",
+          "value": "",
+          "description": "Bold link to the account page, followed by a short description"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "icon",
+          "label": "Icon",
+          "value": "",
+          "description": "Drop-in icon name, e.g. User, Order, AddressBook"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "permission",
+          "label": "Permission",
+          "value": "all",
+          "description": "Use 'all', 'admin', or an ACL resource such as Magento_Company::view_account"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "commerce-account-nav",
+      "components": [
+        "commerce-account-nav-item"
+      ]
+    }
+  ]
+}

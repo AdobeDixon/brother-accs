@@ -1,0 +1,70 @@
+{
+  "definitions": [
+    {
+      "title": "Cards (Category)",
+      "id": "cards-category",
+      "model": "cards-category",
+      "filter": "cards-category",
+      "plugins": {
+        "da": {
+          "name": "cards-category",
+          "rows": 1,
+          "columns": 2
+        }
+      }
+    },
+    {
+      "title": "Category Card",
+      "id": "cards-category-item",
+      "model": "cards-category-item",
+      "plugins": {
+        "da": {
+          "rows": 1,
+          "columns": 2,
+          "fields": [
+            { "name": "image", "selector": "div:nth-child(1)>picture>img[src]" },
+            { "name": "imageAlt", "selector": "div:nth-child(1)>picture>img[alt]" },
+            { "name": "text", "selector": "div:nth-child(2)" }
+          ]
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "cards-category-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "label": "Image Alt",
+          "value": ""
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "text",
+          "label": "Category Link",
+          "value": "",
+          "description": "Link to the category page; the link text is the category name"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "cards-category",
+      "components": [
+        "cards-category-item"
+      ]
+    }
+  ]
+}

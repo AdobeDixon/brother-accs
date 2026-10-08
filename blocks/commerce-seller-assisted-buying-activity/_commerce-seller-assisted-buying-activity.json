@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Seller Assisted Buying Activity",
+      "id": "commerce-seller-assisted-buying-activity",
+      "model": "commerce-seller-assisted-buying-activity",
+      "plugins": {
+        "da": {
+          "name": "commerce-seller-assisted-buying-activity",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

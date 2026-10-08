@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Customer Company",
+      "id": "commerce-customer-company",
+      "model": "commerce-customer-company",
+      "plugins": {
+        "da": {
+          "name": "commerce-customer-company",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

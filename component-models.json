@@ -180,6 +180,33 @@
     ]
   },
   {
+    "id": "cards-category-item",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Category Link",
+        "value": "",
+        "description": "Link to the category page; the link text is the category name"
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -256,6 +283,35 @@
     ]
   },
   {
+    "id": "commerce-account-nav-item",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label",
+        "value": "",
+        "description": "Bold link to the account page, followed by a short description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Icon",
+        "value": "",
+        "description": "Drop-in icon name, e.g. User, Order, AddressBook"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "permission",
+        "label": "Permission",
+        "value": "all",
+        "description": "Use 'all', 'admin', or an ACL resource such as Magento_Company::view_account"
+      }
+    ]
+  },
+  {
     "id": "commerce-addresses",
     "fields": [
       {
@@ -317,6 +373,17 @@
         "component": "boolean",
         "name": "undo-remove-item",
         "label": "Undo Remove Item"
+      }
+    ]
+  },
+  {
+    "id": "commerce-company-credit",
+    "fields": [
+      {
+        "component": "boolean",
+        "name": "show-history",
+        "label": "Show History",
+        "value": true
       }
     ]
   },
@@ -418,6 +485,60 @@
         "component": "text",
         "name": "fragmentUrlText",
         "label": "Fragment URL Text"
+      }
+    ]
+  },
+  {
+    "id": "hero-overlay",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Background Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Background Image Alt",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "value": "",
+        "description": "Heading, subheading, body copy and call-to-action link overlaid on the image"
+      }
+    ]
+  },
+  {
+    "id": "hero-split",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text",
+        "value": "",
+        "description": "Heading, subheading and call-to-action link shown on the blue panel"
       }
     ]
   },
