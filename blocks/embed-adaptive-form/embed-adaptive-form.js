@@ -21,6 +21,26 @@ function isAllowedFormsHost(url) {
 }
 
 /**
+ * Resolves the form URL from the authored link. aem.live rewrites links to *.aem.live/page hosts
+ * into relative paths, so the authored absolute URL is taken from the link text when present.
+ * A relative /content/forms/af/ path on a storefront aem.page/live host is mapped to the forms
+ * site on the same ref and tier.
+ * @param {HTMLAnchorElement} link The authored link
+ * @returns {URL} The form page URL
+ */
+function getFormUrl(link) {
+  const text = link.textContent.trim();
+  const url = new URL(/^https?:\/\//.test(text) ? text : link.href, window.location.href);
+  const storefrontHost = window.location.hostname.match(/^(.+)--brother-accs--adobedixon\.(aem\.(page|live))$/);
+  if (url.origin === window.location.origin && storefrontHost
+    && url.pathname.startsWith('/content/forms/af/')) {
+    const [, ref, domain] = storefrontHost;
+    return new URL(`${url.pathname}${url.search}`, `https://${ref}--brother-accs-forms--adobedixon.${domain}`);
+  }
+  return url;
+}
+
+/**
  * Fetches the form block from a page on another (allowed) origin.
  * @param {URL} url The published form page URL
  * @returns {Promise<HTMLElement|null>} The undecorated form block
@@ -43,7 +63,7 @@ function showError(block, message) {
 async function loadForm(block) {
   const link = block.querySelector('a[href]');
   if (!link) return;
-  const url = new URL(link.href, window.location.href);
+  const url = getFormUrl(link);
 
   if (!isAllowedFormsHost(url)) {
     // eslint-disable-next-line no-console
