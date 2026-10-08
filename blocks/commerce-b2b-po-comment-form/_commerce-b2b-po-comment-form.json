@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce B2B PO Comment Form",
+      "id": "commerce-b2b-po-comment-form",
+      "model": "commerce-b2b-po-comment-form",
+      "plugins": {
+        "da": {
+          "name": "commerce-b2b-po-comment-form",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

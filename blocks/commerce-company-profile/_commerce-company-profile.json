@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Company Profile",
+      "id": "commerce-company-profile",
+      "model": "commerce-company-profile",
+      "plugins": {
+        "da": {
+          "name": "commerce-company-profile",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

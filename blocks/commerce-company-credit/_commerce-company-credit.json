@@ -1,0 +1,24 @@
+{
+  "definitions": [{
+    "title": "Commerce Company Credit",
+    "id": "commerce-company-credit",
+    "model": "commerce-company-credit",
+    "plugins": {
+      "da": {
+        "type": "key-value-block"
+      }
+    }
+  }],
+  "models": [{
+    "id": "commerce-company-credit",
+    "fields": [
+      {
+        "component": "boolean",
+        "name": "show-history",
+        "label": "Show History",
+        "value": true
+      }
+    ]
+  }],
+  "filters": []
+}

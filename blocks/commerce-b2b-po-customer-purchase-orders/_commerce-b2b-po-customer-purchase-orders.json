@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce B2B PO Customer Purchase Orders",
+      "id": "commerce-b2b-po-customer-purchase-orders",
+      "model": "commerce-b2b-po-customer-purchase-orders",
+      "plugins": {
+        "da": {
+          "name": "commerce-b2b-po-customer-purchase-orders",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

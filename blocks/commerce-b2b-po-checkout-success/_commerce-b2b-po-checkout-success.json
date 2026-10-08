@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce B2B PO Checkout Success",
+      "id": "commerce-b2b-po-checkout-success",
+      "model": "commerce-b2b-po-checkout-success",
+      "plugins": {
+        "da": {
+          "name": "commerce-b2b-po-checkout-success",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

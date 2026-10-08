@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce B2B Negotiable Quote",
+      "id": "commerce-b2b-negotiable-quote",
+      "model": "commerce-b2b-negotiable-quote",
+      "plugins": {
+        "da": {
+          "name": "commerce-b2b-negotiable-quote",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

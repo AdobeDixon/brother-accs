@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce B2B PO Approval Flow",
+      "id": "commerce-b2b-po-approval-flow",
+      "model": "commerce-b2b-po-approval-flow",
+      "plugins": {
+        "da": {
+          "name": "commerce-b2b-po-approval-flow",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

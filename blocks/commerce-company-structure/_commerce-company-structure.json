@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Company Structure",
+      "id": "commerce-company-structure",
+      "model": "commerce-company-structure",
+      "plugins": {
+        "da": {
+          "name": "commerce-company-structure",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

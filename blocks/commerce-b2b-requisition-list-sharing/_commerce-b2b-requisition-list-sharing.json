@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce B2B Requisition List Sharing",
+      "id": "commerce-b2b-requisition-list-sharing",
+      "model": "commerce-b2b-requisition-list-sharing",
+      "plugins": {
+        "da": {
+          "name": "commerce-b2b-requisition-list-sharing",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

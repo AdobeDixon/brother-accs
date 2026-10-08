@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce Company Roles Permissions",
+      "id": "commerce-company-roles-permissions",
+      "model": "commerce-company-roles-permissions",
+      "plugins": {
+        "da": {
+          "name": "commerce-company-roles-permissions",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

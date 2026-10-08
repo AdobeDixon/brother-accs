@@ -1,0 +1,18 @@
+{
+  "definitions": [
+    {
+      "title": "Commerce B2B Quote Checkout",
+      "id": "commerce-b2b-quote-checkout",
+      "model": "commerce-b2b-quote-checkout",
+      "plugins": {
+        "da": {
+          "name": "commerce-b2b-quote-checkout",
+          "rows": 1,
+          "columns": 1
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}

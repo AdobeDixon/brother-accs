@@ -23,15 +23,23 @@
   color: rgb(255 255 255);
 }
 
-/* Background photo layer (adopted from the preceding default content by JS) */
-.hero-overlay > picture {
+/* Background photo layer: the authored image row, or the picture adopted
+   from the preceding default content by JS. */
+.hero-overlay > .hero-overlay-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
+}
+
+.hero-overlay > .hero-overlay-bg > div,
+.hero-overlay > .hero-overlay-bg picture {
+  display: block;
+  height: 100%;
   margin: 0;
 }
 
-.hero-overlay > picture img {
+.hero-overlay > .hero-overlay-bg img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -52,7 +60,7 @@
 }
 
 /* Content row: aligns with the page content grid, sits above the photo */
-.hero-overlay > div {
+.hero-overlay > div:not(.hero-overlay-bg) {
   position: relative;
   z-index: 1;
   max-width: 1200px;
@@ -61,7 +69,7 @@
 }
 
 /* Text column: fixed max width, left aligned */
-.hero-overlay > div > div {
+.hero-overlay > div:not(.hero-overlay-bg) > div {
   max-width: 460px;
 }
 
@@ -127,7 +135,7 @@
   }
 
   /* Desktop matches source exactly: photo anchored right, no scrim. */
-  .hero-overlay > picture img {
+  .hero-overlay > .hero-overlay-bg img {
     object-position: right center;
   }
 
@@ -135,11 +143,11 @@
     display: none;
   }
 
-  .hero-overlay > div {
+  .hero-overlay > div:not(.hero-overlay-bg) {
     padding: 0 32px;
   }
 
-  .hero-overlay > div > div {
+  .hero-overlay > div:not(.hero-overlay-bg) > div {
     max-width: 440px;
   }
 

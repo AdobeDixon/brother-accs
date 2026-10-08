@@ -1,0 +1,20 @@
+{
+  "definitions": [
+    {
+      "title": "Columns (Badges)",
+      "id": "columns-badges",
+      "model": "columns",
+      "filter": "columns",
+      "plugins": {
+        "da": {
+          "name": "columns-badges",
+          "rows": 1,
+          "columns": 4,
+          "behaviour": "columns"
+        }
+      }
+    }
+  ],
+  "models": [],
+  "filters": []
+}
